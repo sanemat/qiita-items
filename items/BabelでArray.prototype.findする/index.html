@@ -1,0 +1,16 @@
+<p>babelで<code>Array.prototype.find</code>しようとするとTypeErrorになってしまう。</p>
+
+<div class="code-frame" data-lang="js"><div class="highlight"><pre><span class="p">[</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span> <span class="p">].</span><span class="nx">find</span><span class="p">((</span><span class="nx">x</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="nx">x</span> <span class="o">&gt;=</span> <span class="mi">2</span><span class="p">);</span>
+<span class="c1">// expected</span>
+<span class="c1">// =&gt; 2</span>
+<span class="c1">// actual</span>
+<span class="c1">// =&gt; Uncaught TypeError: [1,2,3].find is not a function</span>
+</pre></div></div>
+
+<p>なので代わりにこっちを使えとのこと。<code>Array.find(arr, callback)</code></p>
+
+<div class="code-frame" data-lang="js"><div class="highlight"><pre><span class="nb">Array</span><span class="p">.</span><span class="nx">find</span><span class="p">([</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span> <span class="p">],</span> <span class="p">(</span><span class="nx">x</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="nx">x</span> <span class="o">&gt;=</span> <span class="mi">2</span><span class="p">);</span>
+<span class="c1">// =&gt; 2</span>
+</pre></div></div>
+
+<p><a href="https://github.com/babel/babel/issues/892" rel="nofollow noopener" target="_blank"><code>Array.prototype.find</code> doesn't work in the runtime · Issue #892 · babel/babel</a></p>

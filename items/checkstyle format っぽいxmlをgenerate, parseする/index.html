@@ -1,0 +1,59 @@
+
+<h1>
+<span id="checkstyle-formatっぽいxml" class="fragment"></span><a href="#checkstyle-format%E3%81%A3%E3%81%BD%E3%81%84xml"><i class="fa fa-link"></i></a>checkstyle formatっぽいxml</h1>
+
+<p>checkstyle formatっぽいxmlをgenerate, parseする時。</p>
+
+<div class="code-frame" data-lang="xml"><div class="highlight"><pre><span class="cp">&lt;?xml version='1.0'?&gt;</span>
+<span class="nt">&lt;checkstyle&gt;</span>
+  <span class="nt">&lt;file</span> <span class="na">name=</span><span class="s">'/home/ubuntu/example-circle_ci-pull_request_review/lib/example/circle_ci/pull_request_review.rb'</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;error</span> <span class="na">line=</span><span class="s">'7'</span> <span class="na">column=</span><span class="s">'120'</span> <span class="na">severity=</span><span class="s">'info'</span> <span class="na">message=</span><span class="s">'Line is too long. [156/120]'</span> <span class="na">source=</span><span class="s">'com.puppycrawl.tools.checkstyle.Metrics/LineLength'</span><span class="nt">/&gt;</span>
+  <span class="nt">&lt;/file&gt;</span>
+<span class="nt">&lt;/checkstyle&gt;</span>
+</pre></div></div>
+
+<p>だいたいこんなやつ。特にかっちり決まったフォーマットがあるわけではないっぽい(自分調べ)。</p>
+
+<p><a href="https://github.com/vigetlabs/grunt-complexity/issues/11" rel="nofollow noopener" target="_blank">手探りで実装していく様子/ Checkstyle format vigetlabs/grunt-complexity</a><br>
+<a href="https://github.com/pritykovskaya/UniRank/blob/a8074e8fdc3ff9ed0f2e6fc5795b3b4a5c03b0ca/checkstyle_report.xml" rel="nofollow noopener" target="_blank">実際のcheckstyle format例</a><br>
+<a href="https://github.com/checkstyle/checkstyle/blob/master/src/test/java/com/puppycrawl/tools/checkstyle/XMLLoggerTest.java" rel="nofollow noopener" target="_blank">checkstyleのloggerのtest</a></p>
+
+<h2>
+<span id="parse" class="fragment"></span><a href="#parse"><i class="fa fa-link"></i></a>parse</h2>
+
+<div class="code-frame" data-lang="text"><div class="highlight"><pre>XML Declaration
+ └── checkstyle element
+      └── file element
+           └── error element
+</pre></div></div>
+
+<p>file elementがname attributeを持つ。name attributeがfile path。ここは、フルパス(absolute path)か相対パス(relative path)かは、出力する側依存ぽいので、決め打てない。checkstyle本体はabsolute pathだけど、checkstyleっぽいformatの場合、出力する側依存。</p>
+
+<p>file elementがerror elementを持つ。</p>
+
+<p>error elementはline, column, severity, message, source のattributeを持つ。必ず全attribute持つかというとそうでもないっぽい。source attributeはない互換formatも多い。</p>
+
+<p>lineは1オリジン。<br>
+columnは1オリジン。<br>
+severityは [ignore, info, warning, error]<br>
+<a href="http://checkstyle.sourceforge.net/property_types.html#severity" class="autolink" rel="nofollow noopener" target="_blank">http://checkstyle.sourceforge.net/property_types.html#severity</a></p>
+
+<p>error無しだとこんな出力するものが多い。fileは見たけど、errorは無いよ的に。</p>
+
+<div class="code-frame" data-lang="xml"><div class="highlight"><pre><span class="cp">&lt;?xml version='1.0'?&gt;</span>
+<span class="nt">&lt;checkstyle&gt;</span>
+  <span class="nt">&lt;file</span> <span class="na">name=</span><span class="s">'/Users/sane/work/tachiko/pigeon.tachikoma.io/Rakefile'</span><span class="nt">/&gt;</span>
+<span class="nt">&lt;/checkstyle&gt;</span>
+</pre></div></div>
+
+<h2>
+<span id="generate" class="fragment"></span><a href="#generate"><i class="fa fa-link"></i></a>generate</h2>
+
+<p>parseの逆。あとはxmlっぽければよさそう。jenkinsのcheckstyleプラグインに通れば正、通らなければダメ、が一番か。</p>
+
+<h2>
+<span id="参考実装調査" class="fragment"></span><a href="#%E5%8F%82%E8%80%83%E5%AE%9F%E8%A3%85%E8%AA%BF%E6%9F%BB"><i class="fa fa-link"></i></a>参考実装・調査</h2>
+
+<p>jscs, eslintはcheckstyle formatterあり。<br>
+rubocopはrubocop-checkstyle_formatter を使う。<br>
+いろいろ調べたメモ: <a href="https://gist.github.com/sanemat/5416e4f701922a47773a" rel="nofollow noopener" target="_blank">lintとか #tng15</a></p>

@@ -1,0 +1,13 @@
+<p>例えばhubot-scriptsを書くときに、開発中はローカルファイルを読み込みたい。そういうとき下記フォーマットで指定できる。</p>
+
+<div class="code-frame" data-lang="bash"><div class="highlight"><pre>npm <span class="nb">install</span> &lt;folder&gt;
+</pre></div></div>
+
+<p>具体的には、<code>package.json</code>の<code>dependencies</code>に<code>"hubot-tantanmen": "*"</code>と書いておいて、</p>
+
+<div class="code-frame" data-lang="bash"><div class="highlight"><pre>npm <span class="nb">install</span> ../hubot-tantanmen
+</pre></div></div>
+
+<p>でオッケー。</p>
+
+<p><a href="https://www.npmjs.org/doc/cli/npm-install.html" rel="nofollow noopener" target="_blank">npm-install</a></p>

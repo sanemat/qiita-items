@@ -1,0 +1,13 @@
+<p>テスト無いペライチのrubyスクリプトも、Travis-CIでrubocopぐらい掛けたい。</p>
+
+<div class="code-frame" data-lang="yaml"><div class="highlight"><pre><span class="na">language</span><span class="pi">:</span> <span class="s">ruby</span>
+<span class="na">rvm</span><span class="pi">:</span>
+<span class="pi">-</span> <span class="m">2.1</span>
+<span class="na">before_install</span><span class="pi">:</span>
+<span class="pi">-</span> <span class="s">gem install rubocop</span>
+<span class="na">script</span><span class="pi">:</span> <span class="s">rubocop --fail-level=W</span>
+</pre></div></div>
+
+<p>rubocopでwarning出ると終了コードを1にする。</p>
+
+<p><a href="https://github.com/tachikomaio/twist-hubot/blob/1135455dcaddc212dbea7218798ed72f4806f202/.travis.yml#L1-L6" rel="nofollow noopener" target="_blank">実例</a></p>

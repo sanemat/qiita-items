@@ -1,0 +1,19 @@
+<p><code>~/.stack</code>の場所を移動したい場合、<code>stack</code>コマンド実行する前に環境変数<code>STACK_ROOT</code>にpathをいれておけばよい。</p>
+
+<p>E.g.</p>
+
+<div class="code-frame" data-lang="bash"><div class="highlight"><pre><span class="c"># .bashrc</span>
+<span class="nb">export </span><span class="nv">STACK_ROOT</span><span class="o">=</span><span class="s2">"</span><span class="nv">$HOME</span><span class="s2">/data/stack"</span>
+</pre></div></div>
+
+<p>こんなかんじになる</p>
+
+<div class="code-frame" data-lang="bash"><div class="highlight"><pre><span class="nv">$ </span>stack path
+Run from outside a project, using implicit global project config
+Using resolver: lts-7.0 from implicit global project<span class="s1">'s config file: /home/sanemat/data/stack/global-project/stack.yaml
+stack-root: /home/sanemat/data/stack
+project-root: /home/sanemat/data/stack/global-project
+(snip)
+</span></pre></div></div>
+
+<p><a href="https://groups.google.com/forum/#!topic/haskell-stack/jnZjoSdId5U" rel="nofollow noopener" target="_blank">move .stack - Google Groups</a></p>

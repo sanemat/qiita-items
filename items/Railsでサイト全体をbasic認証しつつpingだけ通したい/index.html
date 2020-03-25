@@ -1,0 +1,70 @@
+<p>http_basic_authenticate_with してしまうとskip_before_actionの書き方がわからなかったので。</p>
+
+<h2>
+<span id="解決例" class="fragment"></span><a href="#%E8%A7%A3%E6%B1%BA%E4%BE%8B"><i class="fa fa-link"></i></a>解決例</h2>
+
+<div class="code-frame" data-lang="rb"><div class="highlight"><pre><span class="n">http_basic_authenticate_with</span> <span class="ss">realm: </span><span class="s1">'Staging'</span><span class="p">,</span> <span class="ss">name: </span><span class="s1">'user'</span><span class="p">,</span> <span class="ss">password: </span><span class="s1">'password'</span>
+</pre></div></div>
+
+<p>app/controllers/application_controller.rb</p>
+
+<div class="code-frame" data-lang="rb"><div class="highlight"><pre><span class="k">class</span> <span class="nc">ApplicationController</span> <span class="o">&lt;</span> <span class="no">ActionController</span><span class="o">::</span><span class="no">Base</span>
+  <span class="n">before_action</span> <span class="ss">:site_http_basic_authenticate_with</span> <span class="k">if</span> <span class="no">Rails</span><span class="p">.</span><span class="nf">env</span><span class="p">.</span><span class="nf">production?</span>
+
+  <span class="k">def</span> <span class="nf">site_http_basic_authenticate_with</span>
+    <span class="n">authenticate_or_request_with_http_basic</span><span class="p">(</span><span class="s2">"Application"</span><span class="p">)</span> <span class="k">do</span> <span class="o">|</span><span class="nb">name</span><span class="p">,</span> <span class="n">password</span><span class="o">|</span>
+      <span class="nb">name</span> <span class="o">==</span> <span class="no">ENV</span><span class="p">[</span><span class="s1">'MY_SITE_USERNAME'</span><span class="p">]</span> <span class="o">&amp;&amp;</span> <span class="n">password</span> <span class="o">==</span> <span class="no">ENV</span><span class="p">[</span><span class="s1">'MY_SITE_SECRET'</span><span class="p">]</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</pre></div></div>
+
+<p>app/controllers/home_controller.rb</p>
+
+<div class="code-frame" data-lang="rb"><div class="highlight"><pre><span class="k">class</span> <span class="nc">HomeController</span> <span class="o">&lt;</span> <span class="no">ApplicationController</span>
+  <span class="n">skip_before_action</span> <span class="ss">:site_http_basic_authenticate_with</span><span class="p">,</span> <span class="ss">only: </span><span class="p">[</span><span class="ss">:ping</span><span class="p">]</span>
+
+  <span class="k">def</span> <span class="nf">ping</span>
+   <span class="n">render</span> <span class="ss">text: </span><span class="s1">'pong'</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+
+</pre></div></div>
+
+<h2>
+<span id="失敗例" class="fragment"></span><a href="#%E5%A4%B1%E6%95%97%E4%BE%8B"><i class="fa fa-link"></i></a>失敗例</h2>
+
+<h3>
+<span id="skip_before_action-http_basic_authenticate_with" class="fragment"></span><a href="#skip_before_action-http_basic_authenticate_with"><i class="fa fa-link"></i></a>skip_before_action http_basic_authenticate_with</h3>
+
+<p><code>http_basic_authenticate_with</code> 使いつつ, 外したい側で <code>skip_before_action :http_basic_authenticate_with</code><br>
+=&gt; そんな名前のactionはない</p>
+
+<h3>
+<span id="skip_before_action-authenticate_or_request_with_http_basic" class="fragment"></span><a href="#skip_before_action-authenticate_or_request_with_http_basic"><i class="fa fa-link"></i></a>skip_before_action authenticate_or_request_with_http_basic</h3>
+
+<p><code>http_basic_authenticate_with</code> 使いつつ, その中身はbefore_actionで<code>authenticate_or_request_with_http_basic</code> なので、外したい側で <code>skip_before_action :authenticate_or_request_with_http_basic</code><br>
+=&gt; これだとskip対象にならなかった。</p>
+
+<h3>
+<span id="skip_before_action--site_http_basic_authenticate_with-" class="fragment"></span><a href="#skip_before_action--site_http_basic_authenticate_with-"><i class="fa fa-link"></i></a>skip_before_action { site_http_basic_authenticate_with }</h3>
+
+<p>これだともとのrails側実装にも近いし、仮に(?)basic認証複数になっても平気だし、ヨサげ。</p>
+
+<div class="code-frame" data-lang="rb"><div class="highlight"><pre><span class="k">class</span> <span class="nc">ApplicationController</span> <span class="o">&lt;</span> <span class="no">ActionController</span><span class="o">::</span><span class="no">Base</span>
+  <span class="n">before_action</span> <span class="p">{</span> <span class="n">site_http_basic_authenticate_with</span><span class="p">(</span><span class="ss">name: </span><span class="no">ENV</span><span class="p">[</span><span class="s1">'MY_SITE_USERNAME'</span><span class="p">],</span> <span class="ss">password: </span><span class="no">ENV</span><span class="p">[</span><span class="s1">'MY_SITE_SECRET'</span><span class="p">])</span> <span class="k">if</span> <span class="no">Rails</span><span class="p">.</span><span class="nf">env</span><span class="p">.</span><span class="nf">production?</span>
+
+  <span class="k">def</span> <span class="nf">site_http_basic_authenticate_with</span><span class="p">(</span><span class="n">options</span> <span class="o">=</span> <span class="p">{})</span>
+    <span class="n">authenticate_or_request_with_http_basic</span><span class="p">(</span><span class="n">options</span><span class="p">[</span><span class="s1">'realm'</span><span class="p">]</span><span class="o">||</span><span class="s2">"Application"</span><span class="p">)</span> <span class="k">do</span> <span class="o">|</span><span class="nb">name</span><span class="p">,</span> <span class="n">password</span><span class="o">|</span>
+      <span class="nb">name</span> <span class="o">==</span> <span class="n">options</span><span class="p">[</span><span class="s1">'name'</span><span class="p">]</span> <span class="o">&amp;&amp;</span> <span class="n">password</span> <span class="o">==</span> <span class="n">options</span><span class="p">[</span><span class="s1">'password'</span><span class="p">]</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</pre></div></div>
+
+<p>=&gt; うまくskip指定が書けない。</p>
+
+<hr>
+
+<p>see:<br>
+<a href="https://github.com/rails/rails/blob/3ea18d68f7aed88dba31b5a130ccff25a62a794e/actionpack/lib/action_controller/metal/http_authentication.rb#L69-L90" rel="nofollow noopener" target="_blank">rails/rails#4-1-stable actionpack/lib/action_controller/metal/http_authentication.rb</a></p>

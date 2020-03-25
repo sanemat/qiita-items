@@ -1,0 +1,17 @@
+<p>td-agentのバージョン調べようとしてfluentdのバージョン出てコレじゃねーってなることよくあると思う。</p>
+
+<div class="code-frame" data-lang="text"><div class="highlight"><pre>$ sudo td-agent --version
+td-agent 0.12.26
+</pre></div></div>
+
+<p>これfluentdのバージョンね。なので、apt-cache policy 使うと、インストール済み、新しいのがあれば新しい候補、などが表示される。これもちろんtd-agentの場合に限らないんだけど、いちばんよく遭遇するのがtd-agentなので。</p>
+
+<div class="code-frame" data-lang="text"><div class="highlight"><pre>$ sudo apt-cache policy td-agent
+td-agent:
+  Installed: 2.3.2-0
+  Candidate: 2.3.2-0
+  Version table:
+ *** 2.3.2-0 0
+        100 /var/lib/dpkg/status
+
+</pre></div></div>

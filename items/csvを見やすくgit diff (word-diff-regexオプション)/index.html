@@ -1,0 +1,12 @@
+<p>csvで変更のあったカラムだけ見分けたいとき。<code>word-diff-regex</code>オプションに<code>"[^,]+"</code>渡して使う。</p>
+
+<div class="code-frame" data-lang="text"><div class="highlight"><pre>$ git diff --word-diff-regex="[^,]+" 3f8e0eb...6df01c5 -- x-ken-all.csv
+</pre></div></div>
+
+<p><a href="https://qiita-user-contents.imgix.net/https%3A%2F%2Fqiita-image-store.s3.amazonaws.com%2F0%2F5653%2F8689844f-1ef3-a5b8-bf3e-f0fff1ecdbfd.png?ixlib=rb-1.2.2&amp;auto=format&amp;gif-q=60&amp;q=75&amp;s=0f23756e7a075092365c2ab50bfe8d83" target="_blank" rel="nofollow noopener"><img width="1146" alt="Screen Shot 2016-10-28 at 17.58.18.png" src="https://qiita-user-contents.imgix.net/https%3A%2F%2Fqiita-image-store.s3.amazonaws.com%2F0%2F5653%2F8689844f-1ef3-a5b8-bf3e-f0fff1ecdbfd.png?ixlib=rb-1.2.2&amp;auto=format&amp;gif-q=60&amp;q=75&amp;s=0f23756e7a075092365c2ab50bfe8d83" data-canonical-src="https://qiita-image-store.s3.amazonaws.com/0/5653/8689844f-1ef3-a5b8-bf3e-f0fff1ecdbfd.png" srcset="https://qiita-user-contents.imgix.net/https%3A%2F%2Fqiita-image-store.s3.amazonaws.com%2F0%2F5653%2F8689844f-1ef3-a5b8-bf3e-f0fff1ecdbfd.png?ixlib=rb-1.2.2&amp;auto=format&amp;gif-q=60&amp;q=75&amp;w=1400&amp;fit=max&amp;s=9d254b0f4f182f90d311662dfae1d6d2 1x" loading="lazy"></a></p>
+
+<p>使わないとこう。</p>
+
+<p><a href="https://qiita-user-contents.imgix.net/https%3A%2F%2Fqiita-image-store.s3.amazonaws.com%2F0%2F5653%2Fef079c4a-5f24-302d-5136-231a740a6b62.png?ixlib=rb-1.2.2&amp;auto=format&amp;gif-q=60&amp;q=75&amp;s=e0d1a9b639740d56d25271adb00d62e8" target="_blank" rel="nofollow noopener"><img width="1051" alt="Screen Shot 2016-10-28 at 17.57.56.png" src="https://qiita-user-contents.imgix.net/https%3A%2F%2Fqiita-image-store.s3.amazonaws.com%2F0%2F5653%2Fef079c4a-5f24-302d-5136-231a740a6b62.png?ixlib=rb-1.2.2&amp;auto=format&amp;gif-q=60&amp;q=75&amp;s=e0d1a9b639740d56d25271adb00d62e8" data-canonical-src="https://qiita-image-store.s3.amazonaws.com/0/5653/ef079c4a-5f24-302d-5136-231a740a6b62.png" srcset="https://qiita-user-contents.imgix.net/https%3A%2F%2Fqiita-image-store.s3.amazonaws.com%2F0%2F5653%2Fef079c4a-5f24-302d-5136-231a740a6b62.png?ixlib=rb-1.2.2&amp;auto=format&amp;gif-q=60&amp;q=75&amp;w=1400&amp;fit=max&amp;s=cf7a098ae19a11590cd693a3eb327ae3 1x" loading="lazy"></a></p>
+
+<p>見やすーい。</p>

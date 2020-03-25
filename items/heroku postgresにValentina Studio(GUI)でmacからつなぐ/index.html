@@ -1,0 +1,42 @@
+
+<h1>
+<span id="valentina-studio" class="fragment"></span><a href="#valentina-studio"><i class="fa fa-link"></i></a>Valentina Studio</h1>
+
+<p>PG Commanderがヨサソウ。だけどちょっとお高い。(5800円, 2014-07-21 16:16 5800円のところをセールで3900円、あれ、安い?!)</p>
+
+<p>quoraで評価の高い Valentina StudioでGUIからつないだ。<br>
+<a href="http://www.quora.com/PostgreSQL/What-is-the-best-free-GUI-PostgreSQL-client-for-Mac-OS-X" rel="nofollow noopener" target="_blank">PostgreSQL: What is the best free GUI PostgreSQL client for Mac OS X? - Quora</a></p>
+
+<h2>
+<span id="使い方" class="fragment"></span><a href="#%E4%BD%BF%E3%81%84%E6%96%B9"><i class="fa fa-link"></i></a>使い方</h2>
+
+<div class="code-frame" data-lang="text"><div class="highlight"><pre>$ heroku config|grep DATABASE
+DATABASE_URL: postgres://username:password@ec2-your-host.compute-1.amazonaws.com:5432/yourdatabase
+</pre></div></div>
+
+<p><a href="https://qiita-user-contents.imgix.net/https%3A%2F%2Fqiita-image-store.s3.amazonaws.com%2F0%2F5653%2F8392b42b-9579-2a7d-cea6-9b36ea22ff47.png?ixlib=rb-1.2.2&amp;auto=format&amp;gif-q=60&amp;q=75&amp;s=1e64cda98b9e85764d719b9cff3e0441" target="_blank" rel="nofollow noopener"><img src="https://qiita-user-contents.imgix.net/https%3A%2F%2Fqiita-image-store.s3.amazonaws.com%2F0%2F5653%2F8392b42b-9579-2a7d-cea6-9b36ea22ff47.png?ixlib=rb-1.2.2&amp;auto=format&amp;gif-q=60&amp;q=75&amp;s=1e64cda98b9e85764d719b9cff3e0441" alt="Screen Shot 2014-07-21 at 16.24.55.png" data-canonical-src="https://qiita-image-store.s3.amazonaws.com/0/5653/8392b42b-9579-2a7d-cea6-9b36ea22ff47.png" srcset="https://qiita-user-contents.imgix.net/https%3A%2F%2Fqiita-image-store.s3.amazonaws.com%2F0%2F5653%2F8392b42b-9579-2a7d-cea6-9b36ea22ff47.png?ixlib=rb-1.2.2&amp;auto=format&amp;gif-q=60&amp;q=75&amp;w=1400&amp;fit=max&amp;s=5852e65c56dbeab81f7430de9b267fd0 1x" loading="lazy"></a></p>
+
+<p><code>Servers</code> の <code>Connect to...</code> からPostgreSQL, Generalを選ぶ。<br>
+<a href="https://qiita-user-contents.imgix.net/https%3A%2F%2Fqiita-image-store.s3.amazonaws.com%2F0%2F5653%2F2bff00fd-cd56-cf3d-2352-c55bdb2b158c.png?ixlib=rb-1.2.2&amp;auto=format&amp;gif-q=60&amp;q=75&amp;s=b7fa5404e88a9406acf30ff2f96e44e7" target="_blank" rel="nofollow noopener"><img src="https://qiita-user-contents.imgix.net/https%3A%2F%2Fqiita-image-store.s3.amazonaws.com%2F0%2F5653%2F2bff00fd-cd56-cf3d-2352-c55bdb2b158c.png?ixlib=rb-1.2.2&amp;auto=format&amp;gif-q=60&amp;q=75&amp;s=b7fa5404e88a9406acf30ff2f96e44e7" alt="Screen Shot 2014-07-21 at 16.27.46.png" data-canonical-src="https://qiita-image-store.s3.amazonaws.com/0/5653/2bff00fd-cd56-cf3d-2352-c55bdb2b158c.png" srcset="https://qiita-user-contents.imgix.net/https%3A%2F%2Fqiita-image-store.s3.amazonaws.com%2F0%2F5653%2F2bff00fd-cd56-cf3d-2352-c55bdb2b158c.png?ixlib=rb-1.2.2&amp;auto=format&amp;gif-q=60&amp;q=75&amp;w=1400&amp;fit=max&amp;s=ea1a5b2966c23101b59a48153ec5fd5c 1x" loading="lazy"></a></p>
+
+<p>host, username, password, database-name をコピペ。接続するとdatabaseがズラッと並ぶので、自分のデータベースを探す。苦行。</p>
+
+<p>まああとは普通に使える。<br>
+<a href="https://qiita-user-contents.imgix.net/https%3A%2F%2Fqiita-image-store.s3.amazonaws.com%2F0%2F5653%2F6d8ee8f4-1533-a2fd-129d-5e29955a0262.png?ixlib=rb-1.2.2&amp;auto=format&amp;gif-q=60&amp;q=75&amp;s=b732378e0678a1b5210b65aa7844c44c" target="_blank" rel="nofollow noopener"><img src="https://qiita-user-contents.imgix.net/https%3A%2F%2Fqiita-image-store.s3.amazonaws.com%2F0%2F5653%2F6d8ee8f4-1533-a2fd-129d-5e29955a0262.png?ixlib=rb-1.2.2&amp;auto=format&amp;gif-q=60&amp;q=75&amp;s=b732378e0678a1b5210b65aa7844c44c" alt="Screen Shot 2014-07-21 at 16.30.17.png" data-canonical-src="https://qiita-image-store.s3.amazonaws.com/0/5653/6d8ee8f4-1533-a2fd-129d-5e29955a0262.png" srcset="https://qiita-user-contents.imgix.net/https%3A%2F%2Fqiita-image-store.s3.amazonaws.com%2F0%2F5653%2F6d8ee8f4-1533-a2fd-129d-5e29955a0262.png?ixlib=rb-1.2.2&amp;auto=format&amp;gif-q=60&amp;q=75&amp;w=1400&amp;fit=max&amp;s=cf0d01e61e036db6c3179cecb5fa0955 1x" loading="lazy"></a></p>
+
+<h2>
+<span id="感想" class="fragment"></span><a href="#%E6%84%9F%E6%83%B3"><i class="fa fa-link"></i></a>感想</h2>
+
+<p>Sequel Proがはやくpostgresqlに対応してほしい(来なそう)<br>
+<a href="https://news.ycombinator.com/item?id=5214420" rel="nofollow noopener" target="_blank">Can't wait till Sequel Pro supports Postgres. Was really excited to see them pu... | Hacker News</a></p>
+
+<h2>
+<span id="参照" class="fragment"></span><a href="#%E5%8F%82%E7%85%A7"><i class="fa fa-link"></i></a>参照</h2>
+
+<ul>
+<li><a href="https://eggerapps.at/pgcommander/" rel="nofollow noopener" target="_blank">PG Commander, a PostgreSQL client for Mac</a></li>
+<li><a href="http://www.valentina-db.com/en/valentina-studio-overview" rel="nofollow noopener" target="_blank">Valentina Studio - Manager for Valentina, SQLite, mySQL, PostgreSQL</a></li>
+<li><a href="http://qiita.com/fukayatsu/items/0a0befefcf026de80773" id="reference-160116b51bb07e4ef6f6">PG Commander</a></li>
+<li><a href="http://dev.classmethod.jp/tool/pg-commander/" rel="nofollow noopener" target="_blank">【PG Commander】PostgreSQLのGUIツールがシンプルでいい感じでした。 ｜ Developers.IO</a></li>
+<li><a href="http://docs.komagata.org/5164" rel="nofollow noopener" target="_blank">各種DBのMac用GUIクライアント - komagata</a></li>
+</ul>

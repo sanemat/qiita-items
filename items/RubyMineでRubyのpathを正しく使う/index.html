@@ -1,0 +1,23 @@
+<p>anyenv経由のrbenvだとうまくいかない。あとたぶん、普通のrbenvでもうまくいかない。</p>
+
+<h1>
+<span id="rubyのpath" class="fragment"></span><a href="#ruby%E3%81%AEpath"><i class="fa fa-link"></i></a>rubyのpath</h1>
+
+<p>デフォルトのrbenvのpath <code>~/.rbenv</code><br>
+anyenv経由のrbenvのpath <code>~/.anyenv/envs/rbenv</code></p>
+
+<h2>
+<span id="間違い" class="fragment"></span><a href="#%E9%96%93%E9%81%95%E3%81%84"><i class="fa fa-link"></i></a>間違い</h2>
+
+<p>RubyMineのrbenvサポートが<code>~/.rbenv</code>決め打ちなので、<code>~/.rbenv</code> にシンボリックリンク張る<br>
+rubyのsdkとしては認識されるけど、たとえばrakeしようとした時に<code>/usr/bin/ruby</code>が使われてしまう。使うインタプリタがsystem rubyになる…<br>
+<a href="http://www.jetbrains.com/ruby/webhelp/rbenv-support.html" rel="nofollow noopener" target="_blank">Rbenv Support</a></p>
+
+<h2>
+<span id="正解" class="fragment"></span><a href="#%E6%AD%A3%E8%A7%A3"><i class="fa fa-link"></i></a>正解</h2>
+
+<p>(rbenvその他もろもろ設定した上で)mineコマンド作ってシェルから<code>mine .</code>などで起動。<br>
+<a href="http://qiita.com/tanakahisateru/items/187b45aad936a78faf1b" id="reference-aab3d7778ff27f2c7246">WebStorm - Tools &gt; Run Command… で困らないために - Qiita [キータ]</a></p>
+
+<p>Tools -&gt; Show Gem Environment で意図通りの情報が出てればオッケー!<br>
+<a href="https://qiita-user-contents.imgix.net/https%3A%2F%2Fqiita-image-store.s3.amazonaws.com%2F0%2F5653%2F8823abe9-3951-2126-4aab-0edad2b16916.png?ixlib=rb-1.2.2&amp;auto=format&amp;gif-q=60&amp;q=75&amp;s=15d8a28ae1d051e1478764bec5a16b3f" target="_blank" rel="nofollow noopener"><img src="https://qiita-user-contents.imgix.net/https%3A%2F%2Fqiita-image-store.s3.amazonaws.com%2F0%2F5653%2F8823abe9-3951-2126-4aab-0edad2b16916.png?ixlib=rb-1.2.2&amp;auto=format&amp;gif-q=60&amp;q=75&amp;s=15d8a28ae1d051e1478764bec5a16b3f" alt="Screen Shot 2013-12-04 at 15.04.59.png" data-canonical-src="https://qiita-image-store.s3.amazonaws.com/0/5653/8823abe9-3951-2126-4aab-0edad2b16916.png" srcset="https://qiita-user-contents.imgix.net/https%3A%2F%2Fqiita-image-store.s3.amazonaws.com%2F0%2F5653%2F8823abe9-3951-2126-4aab-0edad2b16916.png?ixlib=rb-1.2.2&amp;auto=format&amp;gif-q=60&amp;q=75&amp;w=1400&amp;fit=max&amp;s=30d9ba9fb89bf37d25e25af983742cb8 1x" loading="lazy"></a></p>

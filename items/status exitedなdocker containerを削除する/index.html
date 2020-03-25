@@ -1,0 +1,14 @@
+<p>「<code>docker rm</code>で起動中のコンテナは削除されない」そうだけど、なんかそれはうってなるので、status exited のコンテナだけ明示して削除したい。</p>
+
+<div class="code-frame" data-lang="bash"><div class="highlight"><pre>docker <span class="nb">rm</span> <span class="si">$(</span>docker ps <span class="nt">-a</span> <span class="nt">--filter</span> <span class="s1">'status=exited'</span> <span class="nt">-q</span><span class="si">)</span>
+</pre></div></div>
+
+<p><a href="https://docs.docker.com/reference/commandline/cli/#filtering_2" rel="nofollow noopener" target="_blank">Filter</a><br>
+引用</p>
+
+<div class="code-frame" data-lang="text"><div class="highlight"><pre>-f, --filter=[]       Provide filter values. Valid filters:
+                      exited=&lt;int&gt; - containers with exit code of &lt;int&gt;
+                      status=(restarting|running|paused|exited)
+</pre></div></div>
+
+<p><code>--filter 'exited=1'</code>と終了コードでフィルターも出来る。</p>

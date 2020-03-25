@@ -1,0 +1,21 @@
+<p><a href="http://www.appveyor.com/docs/lang/nodejs-iojs#selecting-node-js-or-io-js-version" rel="nofollow noopener" target="_blank">Testing with Node.js and io.js - Appveyor</a></p>
+
+<p>appveyor.yml</p>
+
+<div class="code-frame" data-lang="diff"><div class="highlight"><pre> # install
+ install:                                                                                                               
+<span class="gi">+- ps: Install-Product node 3                                                                                                               
+</span> - node --version
+ - npm --version
+ - npm install 
+</pre></div></div>
+
+<p>nodejsが<code>0.x</code>, <code>1</code>以降はiojs。次は4から始まるらしいし困らなそう。</p>
+
+<p><a href="https://ci.appveyor.com/project/sanemat/electron-triage-for-github/build/1.0.144" rel="nofollow noopener" target="_blank">実際の例</a></p>
+
+<p>matrixでやるならこっち<br>
+<a href="http://www.appveyor.com/docs/lang/nodejs-iojs#testing-under-multiple-versions-of-node-js-or-io-js" rel="nofollow noopener" target="_blank">Testing under multiple versions of Node.js or io.js</a></p>
+
+<p><code>nodejs/nan</code> のappveyor.ymlを参考にすると良さそう。 <br>
+<a href="https://github.com/nodejs/nan/blob/1c725597a3a101da7fc88f27b3cdecf8528df9ab/appveyor.yml" rel="nofollow noopener" target="_blank">nodejs/nan appveyor.yml</a></p>

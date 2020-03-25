@@ -1,0 +1,16 @@
+<p>terminalから画像をシュッと見たい時、imagemagickに付属のdisplayコマンドが便利。</p>
+
+<div class="code-frame" data-lang="bash"><div class="highlight"><pre>display i-want-to-see.png
+</pre></div></div>
+
+<p>Ubuntu 16.04 で、ウィンドウが開いてくれる。こんなやつ。</p>
+
+<p><a href="https://qiita-user-contents.imgix.net/https%3A%2F%2Fqiita-image-store.s3.amazonaws.com%2F0%2F5653%2Febd118f1-40e2-be2f-f8ae-978fbc089442.png?ixlib=rb-1.2.2&amp;auto=format&amp;gif-q=60&amp;q=75&amp;s=36e1fb78134dcc8c1e6c8d4c021d596c" target="_blank" rel="nofollow noopener"><img src="https://qiita-user-contents.imgix.net/https%3A%2F%2Fqiita-image-store.s3.amazonaws.com%2F0%2F5653%2Febd118f1-40e2-be2f-f8ae-978fbc089442.png?ixlib=rb-1.2.2&amp;auto=format&amp;gif-q=60&amp;q=75&amp;s=36e1fb78134dcc8c1e6c8d4c021d596c" alt="Screenshot from 2019-03-21 00-27-25.png" data-canonical-src="https://qiita-image-store.s3.amazonaws.com/0/5653/ebd118f1-40e2-be2f-f8ae-978fbc089442.png" srcset="https://qiita-user-contents.imgix.net/https%3A%2F%2Fqiita-image-store.s3.amazonaws.com%2F0%2F5653%2Febd118f1-40e2-be2f-f8ae-978fbc089442.png?ixlib=rb-1.2.2&amp;auto=format&amp;gif-q=60&amp;q=75&amp;w=1400&amp;fit=max&amp;s=11535bfcc57fa1560abdec8a70a6c060 1x" loading="lazy"></a></p>
+
+<p>curlでもcatでも行けて便利。</p>
+
+<div class="code-frame" data-lang="bash"><div class="highlight"><pre>curl https://www.iana.org/_img/2013.1/iana-logo-header.svg | display
+<span class="nb">cat </span>i-want-to-see.png | display
+</pre></div></div>
+
+<p><a href="https://unix.stackexchange.com/questions/35333/what-is-the-fastest-way-to-view-images-from-the-terminal" rel="nofollow noopener" target="_blank">command line - What is the fastest way to view images from the terminal? - Unix &amp; Linux Stack Exchange</a></p>

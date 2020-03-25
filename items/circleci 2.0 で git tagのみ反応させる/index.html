@@ -1,0 +1,70 @@
+
+<h1>
+<span id="tldr" class="fragment"></span><a href="#tldr"><i class="fa fa-link"></i></a>TL;DR</h1>
+
+<p>tagでも前のworkflowsが動くようにする必要がある。</p>
+
+<h1>
+<span id="10のとき" class="fragment"></span><a href="#10%E3%81%AE%E3%81%A8%E3%81%8D"><i class="fa fa-link"></i></a>1.0のとき</h1>
+
+<p>deploymentに書くだけで動いたのにどうして。</p>
+
+<h1>
+<span id="document2017-12-31時点" class="fragment"></span><a href="#document2017-12-31%E6%99%82%E7%82%B9"><i class="fa fa-link"></i></a>document(2017-12-31時点)</h1>
+
+<p><a href="https://circleci.com/docs/2.0/workflows/#git-tag-job-execution" class="autolink" rel="nofollow noopener" target="_blank">https://circleci.com/docs/2.0/workflows/#git-tag-job-execution</a></p>
+
+<blockquote>
+<p>CircleCI treats tag and branch filters differently when deciding whether a job should run.<br>
+1. For a branch push unaffected by any filters, CircleCI runs the job.<br>
+2. For a tag push unaffected by any filters, CircleCI skips the job.</p>
+</blockquote>
+
+<p>サポートフォーラムに書く寸前まで来て、何度も読み返してたら気づいた。<br>
+つまり、これじゃ前の依存が起動しないからダメ</p>
+
+<div class="code-frame" data-lang="yaml"><div class="highlight"><pre><span class="na">workflows</span><span class="pi">:</span>
+  <span class="na">version</span><span class="pi">:</span> <span class="m">2</span>
+  <span class="na">build_and_deploy</span><span class="pi">:</span>
+    <span class="na">jobs</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s">build</span>
+      <span class="pi">-</span> <span class="na">package</span><span class="pi">:</span>
+          <span class="na">requires</span><span class="pi">:</span>
+            <span class="pi">-</span> <span class="s">build</span>
+      <span class="pi">-</span> <span class="na">deploy</span><span class="pi">:</span>
+          <span class="na">requires</span><span class="pi">:</span>
+            <span class="pi">-</span> <span class="s">package</span>
+          <span class="na">filters</span><span class="pi">:</span>
+            <span class="na">tags</span><span class="pi">:</span>
+              <span class="na">only</span><span class="pi">:</span> <span class="s">/.*/</span>
+            <span class="na">branches</span><span class="pi">:</span>
+              <span class="na">ignore</span><span class="pi">:</span> <span class="s">/.*/</span>
+</pre></div></div>
+
+<p>セイカイ</p>
+
+<div class="code-frame" data-lang="yaml"><div class="highlight"><pre><span class="na">workflows</span><span class="pi">:</span>
+  <span class="na">version</span><span class="pi">:</span> <span class="m">2</span>
+  <span class="na">build_and_deploy</span><span class="pi">:</span>
+    <span class="na">jobs</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="na">build</span><span class="pi">:</span>
+          <span class="na">filters</span><span class="pi">:</span>
+            <span class="na">tags</span><span class="pi">:</span>
+              <span class="na">only</span><span class="pi">:</span> <span class="s">/.*/</span>
+      <span class="pi">-</span> <span class="na">package</span><span class="pi">:</span>
+          <span class="na">requires</span><span class="pi">:</span>
+            <span class="pi">-</span> <span class="s">build</span>
+          <span class="na">filters</span><span class="pi">:</span>
+            <span class="na">tags</span><span class="pi">:</span>
+              <span class="na">only</span><span class="pi">:</span> <span class="s">/.*/</span>
+      <span class="pi">-</span> <span class="na">deploy</span><span class="pi">:</span>
+          <span class="na">requires</span><span class="pi">:</span>
+            <span class="pi">-</span> <span class="s">package</span>
+          <span class="na">filters</span><span class="pi">:</span>
+            <span class="na">tags</span><span class="pi">:</span>
+              <span class="na">only</span><span class="pi">:</span> <span class="s">/.*/</span>
+            <span class="na">branches</span><span class="pi">:</span>
+              <span class="na">ignore</span><span class="pi">:</span> <span class="s">/.*/</span>
+</pre></div></div>
+
+<p>わかるかあああああ</p>

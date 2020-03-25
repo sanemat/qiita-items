@@ -1,0 +1,47 @@
+
+<h1>
+<span id="que" class="fragment"></span><a href="#que"><i class="fa fa-link"></i></a>Que</h1>
+
+<p>TL;DR: Que is a high-performance alternative to DelayedJob or QueueClassic that improves the reliability of your application by protecting your jobs with the same ACID guarantees as the rest of your data.</p>
+
+<p><a href="https://github.com/chanks/que" rel="nofollow noopener" target="_blank">chanks/que</a></p>
+
+<h2>
+<span id="motivation" class="fragment"></span><a href="#motivation"><i class="fa fa-link"></i></a>Motivation</h2>
+
+<p>resque, sidekiq便利だけど(あとredisも便利だけど)、herokuで使うのにミドルウェア増やしたくない。redistogo? かと言ってDelayedJobはチョット…<br>
+あと、できればworkerで常時1dyno使いたくない。</p>
+
+<h2>
+<span id="how-to-use" class="fragment"></span><a href="#how-to-use"><i class="fa fa-link"></i></a>How to use</h2>
+
+<p>(snip)</p>
+
+<h2>
+<span id="heroku-integration" class="fragment"></span><a href="#heroku-integration"><i class="fa fa-link"></i></a>Heroku integration</h2>
+
+<p>localhostのwebrickなどで動かしてたそのままだと、puma/unicornで動かない。documentにある通り、<code>on_worker_boot</code>や<code>after_fork</code>で起動する。</p>
+
+<p>for Puma:</p>
+
+<div class="code-frame" data-lang="text"><div class="highlight"><pre># config/puma.rb
+on_worker_boot do
+  ActiveRecord::Base.establish_connection
+
+  Que.mode = :async
+end
+</pre></div></div>
+
+<p>And for Unicorn:</p>
+
+<div class="code-frame" data-lang="text"><div class="highlight"><pre># config/unicorn.rb
+after_fork do |server, worker|
+  ActiveRecord::Base.establish_connection
+
+  Que.mode = :async
+end
+</pre></div></div>
+
+<p><a href="https://github.com/chanks/que/blob/a7df15952b2c7602b20cbcbc764d09560789360c/docs/advanced_setup.md" rel="nofollow noopener" target="_blank">advanced_setup</a></p>
+
+<p>これでok.</p>

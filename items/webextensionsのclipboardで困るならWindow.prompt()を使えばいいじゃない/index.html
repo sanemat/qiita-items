@@ -1,0 +1,29 @@
+
+<h1>
+<span id="tldr" class="fragment"></span><a href="#tldr"><i class="fa fa-link"></i></a>TL;DR</h1>
+
+<p>firefox addonのwebextentionsへの移行で、sdk時代と比べてクリップボードへのアクセスがそこまで自由ではなくなった。<br>
+テキストコピペするだけなら<code>Window.prompt()</code>でいいじゃない。</p>
+
+<p><a href="https://developer.mozilla.org/en-US/docs/Web/API/Window/prompt" rel="nofollow noopener" target="_blank">Window.prompt() - Web APIs | MDN</a></p>
+
+<p><a href="https://qiita-user-contents.imgix.net/https%3A%2F%2Fqiita-image-store.s3.amazonaws.com%2F0%2F5653%2F08f7627d-9ec2-d387-a718-c701fa6d1d29.png?ixlib=rb-1.2.2&amp;auto=format&amp;gif-q=60&amp;q=75&amp;s=336abf2be5a3ee2ed208fa5e7dd5f456" target="_blank" rel="nofollow noopener"><img src="https://qiita-user-contents.imgix.net/https%3A%2F%2Fqiita-image-store.s3.amazonaws.com%2F0%2F5653%2F08f7627d-9ec2-d387-a718-c701fa6d1d29.png?ixlib=rb-1.2.2&amp;auto=format&amp;gif-q=60&amp;q=75&amp;s=336abf2be5a3ee2ed208fa5e7dd5f456" alt="Screenshot from 2017-12-21 04-27-45.png" data-canonical-src="https://qiita-image-store.s3.amazonaws.com/0/5653/08f7627d-9ec2-d387-a718-c701fa6d1d29.png" srcset="https://qiita-user-contents.imgix.net/https%3A%2F%2Fqiita-image-store.s3.amazonaws.com%2F0%2F5653%2F08f7627d-9ec2-d387-a718-c701fa6d1d29.png?ixlib=rb-1.2.2&amp;auto=format&amp;gif-q=60&amp;q=75&amp;w=1400&amp;fit=max&amp;s=3905fda07d2c33f9c6cf8af8b3c4b460 1x" loading="lazy"></a></p>
+
+<h2>
+<span id="sdk時代" class="fragment"></span><a href="#sdk%E6%99%82%E4%BB%A3"><i class="fa fa-link"></i></a>sdk時代</h2>
+
+<p>sdk時代はこれで好き勝手にクリップボードアクセスできていた。</p>
+
+<div class="code-frame" data-lang="js"><div class="highlight"><pre><span class="kd">const</span> <span class="nx">clipboard</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">sdk/clipboard</span><span class="dl">'</span><span class="p">);</span>
+<span class="nx">clipboard</span><span class="p">.</span><span class="kd">set</span><span class="p">(</span><span class="dl">'</span><span class="s1">I want to copy this text.</span><span class="dl">'</span><span class="p">);</span>
+</pre></div></div>
+
+<h2>
+<span id="webextensions時代" class="fragment"></span><a href="#webextensions%E6%99%82%E4%BB%A3"><i class="fa fa-link"></i></a>webextensions時代</h2>
+
+<p>セキュリティ上の理由により(要出典)、click eventのようなユーザー起点のeventからじゃないと <code>document.execCommand('copy')</code>で選択範囲をコピーができない。</p>
+
+<h2>
+<span id="windowpromptでいいや" class="fragment"></span><a href="#windowprompt%E3%81%A7%E3%81%84%E3%81%84%E3%82%84"><i class="fa fa-link"></i></a>Window.prompt()でいいや</h2>
+
+<p>これbookmarkletでやったやつだ!</p>

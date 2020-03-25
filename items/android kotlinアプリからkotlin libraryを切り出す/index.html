@@ -1,0 +1,96 @@
+<p>切り出したいなってなってから、ハマったので。</p>
+
+<ul>
+<li>
+<code>gradle init</code> からkotlin library作る</li>
+<li>
+<a href="https://docs.gradle.org/current/userguide/publishing_maven.html" rel="nofollow noopener" target="_blank">Maven Publish Plugin</a> を使い, <code>./gradlew publishToMavenLocal</code> で <code>$HOME/.m2/repository/</code> 以下にpom, jarをつくる</li>
+<li>
+<code>https://bintray.com/USER_NAME/maven/PACKAGE_NAME</code> にupload</li>
+<li>
+<code>maven { url 'https://dl.bintray.com/USER_NAME/maven' }</code> で取得できる</li>
+</ul>
+
+<p>GitHub repositoryにbuild artifact をcommitしない、の場合、ひとまずこれでよさそう。</p>
+
+<blockquote class="twitter-tweet">
+<p>くっそーおれはmethod 1個をlibraryに切り出したいだけなのに なんでみんな親切じゃないんだ ばかにしやがって(被害妄想)</p>— murahashi kenichi (@sanemat) <a href="https://twitter.com/sanemat/status/1071686452403068928?ref_src=twsrc%5Etfw" rel="nofollow noopener" target="_blank">December 9, 2018</a>
+</blockquote>
+
+<script async src="https://platform.twitter.com/widgets.js"></script>
+
+<p>いろいろ参考qiita見てたけど結局自分が何を設定しているかわからなくなったので、最小構成、default構成でいく。</p>
+
+<p>gradleがglobalに入っていなければ入れる。<a href="https://gradle.org/install/" rel="nofollow noopener" target="_blank">Gradle | Installation</a> でSDKMAN が一番上だったのでSDKMANでgradle 5.0入れた。なんもわからん。(なんだよ<code>sdk</code>commandって)</p>
+
+<h2>
+<span id="gradle-init-からkotlin-library作る" class="fragment"></span><a href="#gradle-init-%E3%81%8B%E3%82%89kotlin-library%E4%BD%9C%E3%82%8B"><i class="fa fa-link"></i></a><code>gradle init</code> からkotlin library作る</h2>
+
+<p><code>gradle init</code> で kotlin libraryを作っていく。file structureと、gradle wrapper commandなど作ってくれる。</p>
+
+<p>あらかじめ温めておいたmethodを、Libraryの場所に置く。</p>
+
+<h2>
+<span id="maven-publish-plugin-を使い-gradlew-publishtomavenlocal-で-homem2repository-以下にpom-jarをつくる" class="fragment"></span><a href="#maven-publish-plugin-%E3%82%92%E4%BD%BF%E3%81%84-gradlew-publishtomavenlocal-%E3%81%A7-homem2repository-%E4%BB%A5%E4%B8%8B%E3%81%ABpom-jar%E3%82%92%E3%81%A4%E3%81%8F%E3%82%8B"><i class="fa fa-link"></i></a><a href="https://docs.gradle.org/current/userguide/publishing_maven.html" rel="nofollow noopener" target="_blank">Maven Publish Plugin</a> を使い, <code>./gradlew publishToMavenLocal</code> で <code>$HOME/.m2/repository/</code> 以下にpom, jarをつくる</h2>
+
+<div class="code-frame" data-lang="kotlin"><div class="highlight"><pre><span class="c1">// a part of build.gradle.kts</span>
+<span class="nf">publishing</span> <span class="p">{</span>
+    <span class="nf">publications</span> <span class="p">{</span>
+        <span class="n">create</span><span class="p">&lt;</span><span class="nc">MavenPublication</span><span class="p">&gt;(</span><span class="s">"maven"</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">groupId</span> <span class="p">=</span> <span class="s">"jp.sane.numbertovietnamese"</span>
+            <span class="n">artifactId</span> <span class="p">=</span> <span class="s">"numbertovietnamese"</span>
+            <span class="n">version</span> <span class="p">=</span> <span class="s">"0.2.0"</span>
+
+            <span class="nf">from</span><span class="p">(</span><span class="n">components</span><span class="p">[</span><span class="s">"java"</span><span class="p">])</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div></div>
+
+<p><code>~/.m2/repository</code> 以下にpomとjarができる。android application側から、ここで</p>
+
+<div class="code-frame" data-lang="kotlin"><div class="highlight"><pre><span class="nf">repositories</span> <span class="p">{</span>
+    <span class="nf">mavenLocal</span><span class="p">()</span>
+<span class="p">}</span>
+</pre></div></div>
+
+<p>参照できるようになる。android application側が動くぞってなったら次のstep。</p>
+
+<h2>
+<span id="httpsbintraycomuser_namemavenpackage_name-にupload" class="fragment"></span><a href="#httpsbintraycomuser_namemavenpackage_name-%E3%81%ABupload"><i class="fa fa-link"></i></a><code>https://bintray.com/USER_NAME/maven/PACKAGE_NAME</code> にupload</h2>
+
+<p><code>~/.m2/repository</code>に出来たkotlin libraryのjar, pomを<code>https://bintray.com/USER_NAME/maven/PACKAGE_NAME</code> にupload</p>
+
+<p>jcenterへはまたあとで。</p>
+
+<h2>
+<span id="maven--url-httpsdlbintraycomuser_namemaven--で取得できる" class="fragment"></span><a href="#maven--url-httpsdlbintraycomuser_namemaven--%E3%81%A7%E5%8F%96%E5%BE%97%E3%81%A7%E3%81%8D%E3%82%8B"><i class="fa fa-link"></i></a><code>maven { url 'https://dl.bintray.com/USER_NAME/maven' }</code> で取得できる</h2>
+
+<div class="code-frame" data-lang="text"><div class="highlight"><pre>maven {
+    url 'https://dl.bintray.com/USER_NAME/maven'
+}
+</pre></div></div>
+
+<p>ここで、mavenLocalからではなく、publicなところからlibraryを取得できるようになった。</p>
+
+<h2>
+<span id="依存よくわからない" class="fragment"></span><a href="#%E4%BE%9D%E5%AD%98%E3%82%88%E3%81%8F%E3%82%8F%E3%81%8B%E3%82%89%E3%81%AA%E3%81%84"><i class="fa fa-link"></i></a>依存よくわからない</h2>
+
+<p>これでいいんだろうか。<code>kotlin-stdlib-jdk8</code> に依存するの??</p>
+
+<div class="code-frame" data-lang="text"><div class="highlight"><pre>\--- jp.sane.numbertovietnamese:numbertovietnamese:0.2.0
+     \--- org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.3.10
+          +--- org.jetbrains.kotlin:kotlin-stdlib:1.3.10 (*)
+          \--- org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.3.10 (*)
+</pre></div></div>
+
+<h2>
+<span id="参照" class="fragment"></span><a href="#%E5%8F%82%E7%85%A7"><i class="fa fa-link"></i></a>参照</h2>
+
+<ul>
+<li><a href="https://qiita.com/gupuru/items/aa81f007d306fc6c4a2c" id="reference-e872222dec2d63adab7e">作ったAndroidライブラリを公開する方法 - Qiita</a></li>
+<li><a href="https://qiita.com/rejasupotaro/items/b9b89f88348222b46708" id="reference-507194f99e4f7821c42f">Androidでaptのライブラリを作るときの高速道路 - Qiita</a></li>
+<li><a href="https://qiita.com/ligun/items/34a570e48d97b68b1608" id="reference-627bd3233ec4487931bd">JavaやGroovy製のライブラリをMavenリポジトリで公開する - Qiita</a></li>
+<li><a href="https://qiita.com/ryo_mm2d/items/da49cc4677847c20c3fb" id="reference-c23fc001dd969bc6184e">jCenterでライブラリを公開する方法 - Qiita</a></li>
+<li><a href="https://qiita.com/numa08/items/7df55c55c17d1d246d7f" id="reference-94990378b06983749d51">カジュアルにライブラリを作っていく話 Android のサンプルと共に - Qiita</a></li>
+</ul>

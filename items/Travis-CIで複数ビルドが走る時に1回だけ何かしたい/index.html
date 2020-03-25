@@ -1,0 +1,26 @@
+<p>Travis-CIで複数ビルドが走る時に1回だけ何かしたい場合。具体的には、Pull Request契機にbashから何か起動したいがRubyのバージョン複数、データベースも複数、だったりの場合。あまり実行環境に依存しないように書くと変更に強い。</p>
+
+<div class="code-frame" data-lang="bash"><div class="highlight"><pre><span class="c">#!/bin/bash</span>
+<span class="nb">set</span> <span class="nt">-euv</span>
+<span class="k">if</span>  <span class="o">[[</span> <span class="s2">"</span><span class="k">${</span><span class="nv">TRAVIS_JOB_NUMBER</span>:<span class="p"> -2</span><span class="k">}</span><span class="s2">"</span> <span class="o">==</span> <span class="s2">".1"</span> <span class="o">]]</span><span class="p">;</span> <span class="k">then</span>
+  <span class="c"># you want to do</span>
+<span class="k">fi</span>
+</pre></div></div>
+
+<p>たとえばこれが <a href="https://travis-ci.org/packsaddle/ruby-restore_bundled_with/builds/67380365" rel="nofollow noopener" target="_blank">Build #19</a> でJOB NUMBERは<code>19.1, 19.2, 19.3, 19.4</code> なので、最後の文字列2文字が<code>.1</code>の時だけ実行するようにすれば良い。</p>
+
+<p>正規表現でこんなのにしても良さそうだが試してないのであしからず。</p>
+
+<div class="code-frame" data-lang="bash"><div class="highlight"><pre><span class="c">#!/bin/bash</span>
+<span class="nb">set</span> <span class="nt">-euv</span>
+<span class="k">if</span> <span class="o">[[</span> <span class="s2">"</span><span class="k">${</span><span class="nv">TRAVIS_JOB_NUMBER</span><span class="k">}</span><span class="s2">"</span> <span class="o">=</span>~ <span class="se">\.</span>1<span class="nv">$ </span><span class="o">]]</span><span class="p">;</span> <span class="k">then</span>
+  <span class="c"># you want to do</span>
+<span class="k">fi</span>
+</pre></div></div>
+
+<hr>
+
+<ul>
+<li><a href="https://github.com/packsaddle/ruby-restore_bundled_with/blob/640d66342ab124fdeca96f327af94f82be3f99eb/bin/run-rubocop.sh#L3" rel="nofollow noopener" target="_blank">Actual example</a></li>
+<li><a href="http://srad.jp/%7Ecobonzu/journal/547921/" rel="nofollow noopener" target="_blank">bashでの文字列操作 | cobonzuの日記 | スラド</a></li>
+</ul>

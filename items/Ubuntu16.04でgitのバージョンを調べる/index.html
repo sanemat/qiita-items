@@ -1,0 +1,21 @@
+<div class="code-frame" data-lang="text"><div class="highlight"><pre>$ dpkg -s git |grep Version
+Version: 1:2.7.4-0ubuntu1.2
+</pre></div></div>
+
+<p>コレならCVE-2017-1000117はオッケー</p>
+
+<p>changelogはコレで見える</p>
+
+<div class="code-frame" data-lang="text"><div class="highlight"><pre>$ apt changelog git
+git (1:2.7.4-0ubuntu1.2) xenial-security; urgency=medium
+
+  * SECURITY UPDATE: Arbitrary code execution on clients through
+    malicious ssh URLs.
+    - debian/patches/CVE-2017-1000117.patch: filter out hostnames that
+      would interpreted as cli arguments to ssh
+    - debian/diff/0002-transport-expose-git_tcp_connect-and-friends-in-new-t.diff:
+      update to adjust for changes from CVE-2017-1000117.patch.
+    - CVE-2017-1000117
+
+ -- Steve Beattie &lt;sbeattie@ubuntu.com&gt;  Thu, 10 Aug 2017 14:15:28 -0700
+</pre></div></div>

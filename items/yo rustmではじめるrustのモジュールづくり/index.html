@@ -1,0 +1,108 @@
+
+<h1>
+<span id="tldr" class="fragment"></span><a href="#tldr"><i class="fa fa-link"></i></a>TL;DR</h1>
+
+<p><code>yo rustm</code>で、シュッとrustのモジュールを作り始められる。</p>
+
+<div class="code-frame" data-lang="text"><div class="highlight"><pre>$ yo rustm
+? What do you want to name your module? gitconfig
+? What is your module description? My splendid module
+? What is your GitHub username? packsaddle
+? What is the URL of your website? http://sane.jp
+Initialized empty Git repository in /mnt/623D90F735FA5D47/sanemat/data/src/githu
+b.com/packsaddle/rust-gitconfig/.git/
+   create package.json
+   create Cargo.toml
+   create changelog.md
+   create ci/install.sh
+   create ci/script.sh
+   create license-apache
+   create license-mit
+   create readme.md
+   create src/lib.rs
+   create .appveyor.yml
+   create .conventional-changelog.context.js
+   create .gitignore
+   create .travis.yml
+</pre></div></div>
+
+<p><a href="https://www.npmjs.com/package/generator-rustm" rel="nofollow noopener" target="_blank">generator-rustm</a></p>
+
+<h1>
+<span id="cargo-newだといろいろ足りない" class="fragment"></span><a href="#cargo-new%E3%81%A0%E3%81%A8%E3%81%84%E3%82%8D%E3%81%84%E3%82%8D%E8%B6%B3%E3%82%8A%E3%81%AA%E3%81%84"><i class="fa fa-link"></i></a>cargo newだといろいろ足りない</h1>
+
+<p>もちろん謹製のコマンドでcargo newがあり、CLIなら --bin をつけることで、まずほんとの最小限のファイルは作成できる。</p>
+
+<div class="code-frame" data-lang="bash"><div class="highlight"><pre><span class="nv">$ </span>cargo new hello_world <span class="nt">--bin</span>
+<span class="c"># あるいは</span>
+<span class="nv">$ </span>cargo new hello_world
+
+<span class="nv">$ </span>tree hello_world/
+hello_world/
+├── Cargo.toml
+└── src
+    └── lib.rs
+</pre></div></div>
+
+<p>これだけでは <a href="https://crates.io/" rel="nofollow noopener" target="_blank">crates</a>にpackageを登録するには、ちょっといろいろ足りないので、yo rustmではじめると便利。</p>
+
+<h1>
+<span id="yo-rustmがやること" class="fragment"></span><a href="#yo-rustm%E3%81%8C%E3%82%84%E3%82%8B%E3%81%93%E3%81%A8"><i class="fa fa-link"></i></a>yo rustmがやること</h1>
+
+<ul>
+<li>ci</li>
+<li>tag打ったらzipでgithub releaseへ
+
+<ul>
+<li>windows, linux, mac で使えるバイナリをzip</li>
+<li>zipには必要十分なファイルだけ入れる</li>
+</ul>
+</li>
+<li>readme</li>
+<li>travis, appveyor, cratesのbadgeをreadmeに</li>
+<li>changelog</li>
+<li>ライセンス</li>
+<li>cratesへのリリースに コレぐらいはあって欲しい Cargo.toml埋め</li>
+</ul>
+
+<p>ci, zip releaseは<a href="https://github.com/japaric/trust" rel="nofollow noopener" target="_blank">trust</a>。changelogは<a href="https://github.com/conventional-changelog/conventional-changelog" rel="nofollow noopener" target="_blank">conventional-changelog</a>。</p>
+
+<p>便利ですね。</p>
+
+<h2>
+<span id="姉妹品-yo-rustmc" class="fragment"></span><a href="#%E5%A7%89%E5%A6%B9%E5%93%81-yo-rustmc"><i class="fa fa-link"></i></a>姉妹品 yo rustmc</h2>
+
+<p>CLIツール用には、 姉妹品の<a href="https://www.npmjs.com/package/generator-rustmc" rel="nofollow noopener" target="_blank">generator-rustmc</a>が便利です。<code>yo rustmc</code>。</p>
+
+<h1>
+<span id="インストール" class="fragment"></span><a href="#%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB"><i class="fa fa-link"></i></a>インストール</h1>
+
+<div class="code-frame" data-lang="bash"><div class="highlight"><pre>npm i <span class="nt">-g</span> yo generator-rustm
+<span class="c"># あるいは</span>
+npm i <span class="nt">-g</span> yo generator-rustmc
+</pre></div></div>
+
+<p>nodejsはあるよね。</p>
+
+<h1>
+<span id="tips" class="fragment"></span><a href="#tips"><i class="fa fa-link"></i></a>tips</h1>
+
+<h2>
+<span id="好きなディレクトリ名をつける" class="fragment"></span><a href="#%E5%A5%BD%E3%81%8D%E3%81%AA%E3%83%87%E3%82%A3%E3%83%AC%E3%82%AF%E3%83%88%E3%83%AA%E5%90%8D%E3%82%92%E3%81%A4%E3%81%91%E3%82%8B"><i class="fa fa-link"></i></a>好きなディレクトリ名をつける</h2>
+
+<p><code>cargo new</code>はその名前でディレクトリを作っちゃいます。ディレクトリ名は<code>rust-your_crate</code>にしたい若干面倒なひとも<code>yo rustm</code>なら安心。</p>
+
+<div class="code-frame" data-lang="bash"><div class="highlight"><pre><span class="nv">$ </span>cargo new hello_world
+     Created library <span class="sb">`</span>hello_world<span class="sb">`</span> project
+<span class="nv">$ </span>tree hello_world/
+hello_world/
+├── Cargo.toml
+└── src
+    └── lib.rs
+
+<span class="nv">$ </span><span class="nb">mkdir</span> <span class="nt">-p</span> rust-your_crate
+<span class="nv">$ </span><span class="nb">cd </span>rust-your_crate/
+<span class="nv">$ </span>yo rustm
+? What <span class="k">do </span>you want to name your module? your_crate
+<span class="o">(</span>snip<span class="o">)</span>
+</pre></div></div>

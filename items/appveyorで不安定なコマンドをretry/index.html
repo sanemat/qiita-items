@@ -1,0 +1,45 @@
+
+<h1>
+<span id="tldr" class="fragment"></span><a href="#tldr"><i class="fa fa-link"></i></a>TL;DR</h1>
+
+<p><code>appveyor-retry</code>をつかう。</p>
+
+<div class="code-frame" data-lang="text"><div class="highlight"><pre>$ appveyor-retry call your-command
+</pre></div></div>
+
+<p><a href="https://help.appveyor.com/discussions/suggestions/816-generic-wrapper-for-retry" rel="nofollow noopener" target="_blank">Generic wrapper for retry</a></p>
+
+<h1>
+<span id="なぜ" class="fragment"></span><a href="#%E3%81%AA%E3%81%9C"><i class="fa fa-link"></i></a>なぜ</h1>
+
+<p><code>npm install</code>など、ネットワーク由来でコケやすい。travis-ciだと<code>travis_retry</code>コマンドがある。<a href="https://docs.travis-ci.com/user/common-build-problems/#travis_retry" rel="nofollow noopener" target="_blank">Common Build Problems - Travis CI</a></p>
+
+<h1>
+<span id="具体的には" class="fragment"></span><a href="#%E5%85%B7%E4%BD%93%E7%9A%84%E3%81%AB%E3%81%AF"><i class="fa fa-link"></i></a>具体的には</h1>
+
+<p>cmdとpowershellでちょっと違うが、つまりこうする。</p>
+
+<div class="code-frame" data-lang="yaml"><div class="highlight"><pre><span class="na">environment</span><span class="pi">:</span>
+  <span class="na">matrix</span><span class="pi">:</span>
+  <span class="pi">-</span> <span class="na">nodejs_version</span><span class="pi">:</span> <span class="m">8</span>
+  <span class="pi">-</span> <span class="na">nodejs_version</span><span class="pi">:</span> <span class="m">9</span>
+
+<span class="c1"># install</span>
+<span class="na">install</span><span class="pi">:</span>
+<span class="pi">-</span> <span class="na">cmd</span><span class="pi">:</span> <span class="s">appveyor-retry powershell Install-Product node $env:nodejs_version</span>
+<span class="pi">-</span> <span class="s">node --version</span>
+<span class="pi">-</span> <span class="s">npm --version</span>
+<span class="pi">-</span> <span class="s">appveyor-retry call npm install</span>
+</pre></div></div>
+
+<p>こんなかんじ。callなしの<code>appveyor-retry npm install</code>でいいのだけど、call付きだとpowershellの場合に混乱しなくていい。</p>
+
+<div class="code-frame" data-lang="yaml"><div class="highlight"><pre><span class="pi">-</span> <span class="na">ps</span><span class="pi">:</span> <span class="s">Install-Product node $env:nodejs_version</span>
+</pre></div></div>
+
+<p>powershellはもともとこうしていたらこうする。</p>
+
+<div class="code-frame" data-lang="yaml"><div class="highlight"><pre><span class="pi">-</span> <span class="na">cmd</span><span class="pi">:</span> <span class="s">appveyor-retry powershell Install-Product node $env:nodejs_version</span>
+</pre></div></div>
+
+<p>少しだけ不安定さが減る。</p>

@@ -1,0 +1,28 @@
+<p>ベトナム語に限らない。Text to Speech <code>android.speech.tts.TextToSpeech</code>を使うだけ。音がズレてるけど、実際は再生っぽい記号押したら読み上げてます。</p>
+
+<blockquote class="twitter-tweet">
+<p>speech Vietnamese <a href="https://t.co/eMdcmbxXSB" rel="nofollow noopener" target="_blank">https://t.co/eMdcmbxXSB</a></p>— murahashi kenichi (@sanemat) <a href="https://twitter.com/sanemat/status/1067809486973284352?ref_src=twsrc%5Etfw" rel="nofollow noopener" target="_blank">November 28, 2018</a>
+</blockquote>
+
+<script async src="https://platform.twitter.com/widgets.js"></script>
+
+<p>※ Android Studio Emulatorで録画</p>
+
+<p>コードはこんな感じのコピペ。よくわからない。</p>
+
+<div class="code-frame" data-lang="kotlin"><div class="highlight"><pre><span class="kd">val</span> <span class="py">vietnamese</span> <span class="p">=</span> <span class="s">"năm"</span>
+<span class="c1">// android - Unresolved reference inside anonymous Kotlin listener - Stack Overflow</span>
+<span class="c1">// https://stackoverflow.com/questions/35049850/unresolved-reference-inside-anonymous-kotlin-listener</span>
+<span class="kd">val</span> <span class="py">textToSpeech</span> <span class="p">=</span> <span class="kd">object</span> <span class="err">{
+    val value: </span><span class="nc">TextToSpeech</span> <span class="k">get</span><span class="p">()</span> <span class="p">=</span> <span class="k">inner</span>
+    <span class="k">private</span> <span class="kd">val</span> <span class="py">inner</span> <span class="p">=</span> <span class="nc">TextToSpeech</span><span class="p">(</span>
+        <span class="n">applicationContext</span><span class="p">,</span>
+        <span class="p">{</span>
+            <span class="n">value</span><span class="p">.</span><span class="nf">setLanguage</span><span class="p">(</span><span class="nc">Locale</span><span class="p">(</span><span class="s">"vi"</span><span class="p">))</span>
+            <span class="n">value</span><span class="p">.</span><span class="nf">speak</span><span class="p">(</span><span class="n">vietnamese</span><span class="p">,</span> <span class="nc">TextToSpeech</span><span class="p">.</span><span class="nc">QUEUE_FLUSH</span><span class="p">,</span><span class="k">null</span><span class="p">,</span><span class="k">null</span><span class="p">)</span>
+        <span class="p">}</span>
+    <span class="p">)</span>
+<span class="p">}.</span><span class="n">value</span>
+</pre></div></div>
+
+<p>ベトナム語の数字を覚えよう。</p>

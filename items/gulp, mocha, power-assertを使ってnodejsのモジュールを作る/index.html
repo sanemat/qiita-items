@@ -1,0 +1,52 @@
+
+<h1>
+<span id="どんな感じ" class="fragment"></span><a href="#%E3%81%A9%E3%82%93%E3%81%AA%E6%84%9F%E3%81%98"><i class="fa fa-link"></i></a>どんな感じ</h1>
+
+<p><a href="https://qiita-user-contents.imgix.net/https%3A%2F%2Fgist.githubusercontent.com%2Fsanemat%2Fd5300f37edb2093ccec1%2Fraw%2Ff0542e5b10ab53f05e59e4669fae856489fe903c%2Fgulp-mocha-power-assert1.gif?ixlib=rb-1.2.2&amp;auto=format&amp;gif-q=60&amp;q=75&amp;s=353033810754514d9424bd1c97c8c4b1" target="_blank" rel="nofollow noopener"><img src="https://qiita-user-contents.imgix.net/https%3A%2F%2Fgist.githubusercontent.com%2Fsanemat%2Fd5300f37edb2093ccec1%2Fraw%2Ff0542e5b10ab53f05e59e4669fae856489fe903c%2Fgulp-mocha-power-assert1.gif?ixlib=rb-1.2.2&amp;auto=format&amp;gif-q=60&amp;q=75&amp;s=353033810754514d9424bd1c97c8c4b1" alt="gulp-mocha-power-assert" data-canonical-src="https://gist.githubusercontent.com/sanemat/d5300f37edb2093ccec1/raw/f0542e5b10ab53f05e59e4669fae856489fe903c/gulp-mocha-power-assert1.gif" srcset="https://qiita-user-contents.imgix.net/https%3A%2F%2Fgist.githubusercontent.com%2Fsanemat%2Fd5300f37edb2093ccec1%2Fraw%2Ff0542e5b10ab53f05e59e4669fae856489fe903c%2Fgulp-mocha-power-assert1.gif?ixlib=rb-1.2.2&amp;auto=format&amp;gif-q=60&amp;q=75&amp;w=1400&amp;fit=max&amp;s=f630bb18a7b9cda7ba6647b1fe652407 1x" loading="lazy"></a></p>
+
+<h1>
+<span id="yo" class="fragment"></span><a href="#yo"><i class="fa fa-link"></i></a>yo</h1>
+
+<div class="code-frame" data-lang="text"><div class="highlight"><pre>npm install -g generator-node-gulp
+yo node-gulp
+david update # ひとまず最新に
+</pre></div></div>
+
+<h1>
+<span id="mocha-assert" class="fragment"></span><a href="#mocha-assert"><i class="fa fa-link"></i></a>mocha, assert</h1>
+
+<p>組み合わさってるのが<code>mocha</code>と<code>should</code>なので、<code>should</code>を消して<code>assert</code>に変える。</p>
+
+<div class="code-frame" data-lang="text"><div class="highlight"><pre>npm uninstall should --save-dev
+</pre></div></div>
+
+<p><code>gulp-mocha</code>にはrequireオプション無いが、対策は後述。</p>
+
+<h1>
+<span id="power-assert" class="fragment"></span><a href="#power-assert"><i class="fa fa-link"></i></a>power-assert</h1>
+
+<div class="code-frame" data-lang="text"><div class="highlight"><pre>npm install power-assert intelli-espower-loader --save-dev
+</pre></div></div>
+
+<p><code>assert</code>を<code>power-assert</code>に変える。</p>
+
+<p><code>gulp-mocha</code>はrequireオプションのpull requestが来るたびに、「それはmochaの領分だろ」って<a href="https://github.com/sindresorhus/gulp-mocha/pull/34" rel="nofollow noopener" target="_blank">撃ち落としてる</a>。opinionatedだ。Constさんの別の<a href="https://github.com/sindresorhus/gulp-mocha/pull/12" rel="nofollow noopener" target="_blank">pull request</a>を見て<code>gulpfile.js</code>に<code>require('intelli-espower-loader');</code>って書けばよさそうとわかった。</p>
+
+<p>package.jsonに <code>"directories": { "test": "test/" },</code>付け足して終わり。</p>
+
+<h1>
+<span id="参照" class="fragment"></span><a href="#%E5%8F%82%E7%85%A7"><i class="fa fa-link"></i></a>参照</h1>
+
+<h2>
+<span id="具体例" class="fragment"></span><a href="#%E5%85%B7%E4%BD%93%E4%BE%8B"><i class="fa fa-link"></i></a>具体例</h2>
+
+<p><a href="https://github.com/sanemat/node-prefecture-jp" rel="nofollow noopener" target="_blank">prefecture-jp</a></p>
+
+<h2>
+<span id="その他" class="fragment"></span><a href="#%E3%81%9D%E3%81%AE%E4%BB%96"><i class="fa fa-link"></i></a>その他</h2>
+
+<p><a href="https://github.com/stefanbuck/generator-node-gulp" rel="nofollow noopener" target="_blank">generator-node-gulp</a><br>
+<a href="https://github.com/sindresorhus/gulp-mocha" rel="nofollow noopener" target="_blank">gulp-mocha</a><br>
+<a href="https://github.com/alanshaw/david" rel="nofollow noopener" target="_blank">david</a><br>
+<a href="https://github.com/twada/power-assert" rel="nofollow noopener" target="_blank">power-assert</a><br>
+<a href="https://github.com/azu/intelli-espower-loader" rel="nofollow noopener" target="_blank">intelli-espower-loader</a></p>

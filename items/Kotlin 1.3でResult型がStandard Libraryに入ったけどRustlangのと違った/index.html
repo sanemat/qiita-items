@@ -1,0 +1,25 @@
+<p>Rustlangにかぶれているので、Result型返すぞーとおもったけど、まだその用途ではなかった。</p>
+
+<p>Kotlin 1.3で、Standard LibraryにResult型が入ったみたい。</p>
+
+<p><a href="https://github.com/Kotlin/KEEP/blob/d464fefd2a13123e91126d0ba87a48b9bab0a44b/proposals/stdlib/result.md#encapsulate-successful-or-failed-function-execution" rel="nofollow noopener" target="_blank">Encapsulate successful or failed function execution</a><br>
+<a href="https://youtrack.jetbrains.com/issue/KT-18608" rel="nofollow noopener" target="_blank">Result type for Kotlin (aka Try monad)</a><br>
+<a href="https://github.com/Kotlin/KEEP/issues/127" rel="nofollow noopener" target="_blank">Encapsulate successful or failed function execution #127</a></p>
+
+<p>やろうと思ったのはこういうの。</p>
+
+<div class="code-frame" data-lang="kotlin"><div class="highlight"><pre><span class="k">fun</span> <span class="nf">numberToVietnamese</span><span class="p">(</span><span class="n">num</span><span class="p">:</span> <span class="nc">Int</span><span class="p">)</span> <span class="p">:</span> <span class="nc">Result</span><span class="p">&lt;</span><span class="nc">String</span><span class="p">,</span> <span class="nc">Box</span><span class="p">&lt;</span><span class="nc">Error</span><span class="p">&gt;&gt;</span> <span class="p">{</span>
+<span class="p">}</span>
+</pre></div></div>
+
+<p>return valueでpattern matchingしたいじゃん。</p>
+
+<p>でもone type argumentしか取れないって言うし、one typeにしても、ダメって言われる。</p>
+
+<p><a href="https://github.com/Kotlin/KEEP/blob/d464fefd2a13123e91126d0ba87a48b9bab0a44b/proposals/stdlib/result.md#limitations" rel="nofollow noopener" target="_blank">Limitations</a></p>
+
+<blockquote>
+<p>This Result class cannot be used directly as a return type of Kotlin functions.</p>
+</blockquote>
+
+<p>この目的のResultではまだないみたい。</p>

@@ -1,0 +1,49 @@
+
+<h1>
+<span id="tldr" class="fragment"></span><a href="#tldr"><i class="fa fa-link"></i></a>TL;DR</h1>
+
+<p>全部<code>git clone</code>してきてlocalで<code>git grep</code>, <code>grep</code>する。</p>
+
+<h2>
+<span id="shallow-clone" class="fragment"></span><a href="#shallow-clone"><i class="fa fa-link"></i></a>Shallow clone</h2>
+
+<p>shallow clone into ~/tmp/packsaddle20191210</p>
+
+<div class="code-frame" data-lang="bash"><div class="highlight"><pre><span class="nb">mkdir</span> <span class="nt">-p</span> ~/tmp/packsaddle20191210
+<span class="nb">cd</span> ~/tmp/packsaddle20191210
+github-repos <span class="nt">-org</span> packsaddle <span class="nt">-z</span> | xargs <span class="nt">-0</span> <span class="nt">-P4</span> <span class="nt">-I</span> <span class="o">{}</span> git clone <span class="o">{}</span> <span class="nt">--depth</span> 1
+</pre></div></div>
+
+<p><a href="https://dev.to/sanemat/git-clone-repositories-in-a-github-organization-gh8" rel="nofollow noopener" target="_blank">Git clone repositories in a GitHub organization</a><br>
+<a href="https://github.com/sanemat/go-githubrepos" rel="nofollow noopener" target="_blank">sanemat/go-githubrepos</a></p>
+
+<h2>
+<span id="check-ruby-version" class="fragment"></span><a href="#check-ruby-version"><i class="fa fa-link"></i></a>Check ruby version</h2>
+
+<div class="code-frame" data-lang="bash"><div class="highlight"><pre><span class="k">for </span><span class="nb">dir </span><span class="k">in</span> <span class="k">*</span>/<span class="p">;</span> <span class="k">do</span> <span class="o">(</span><span class="nb">cd</span> <span class="nv">$dir</span><span class="p">;</span> git <span class="nb">grep</span> <span class="nt">-n</span> <span class="nt">-E</span> <span class="s2">"^[ ]{3}ruby 2"</span> <span class="nt">--</span> Gemfile.lock| <span class="nb">tr</span> <span class="nt">-s</span> <span class="s1">'\n'</span> <span class="s1">'\0'</span> | xargs <span class="nt">-0</span> <span class="nt">-I</span> <span class="o">{}</span> <span class="nb">printf</span> <span class="s2">"</span><span class="si">$(</span><span class="nb">basename</span> <span class="si">$(</span><span class="nb">pwd</span><span class="si">))</span><span class="s2">/{}</span><span class="se">\n</span><span class="s2">"</span><span class="o">)</span> <span class="k">done</span>
+// or
+<span class="k">for </span><span class="nb">dir </span><span class="k">in</span> <span class="k">*</span>/<span class="p">;</span> <span class="k">do</span> <span class="o">(</span><span class="nb">cd</span> <span class="nv">$dir</span><span class="p">;</span> <span class="nb">grep</span> <span class="nt">-nH</span> <span class="nt">-E</span> <span class="s2">"^[ ]{3}ruby 2.*$"</span> <span class="nt">--</span> Gemfile.lock| <span class="nb">tr</span> <span class="nt">-s</span> <span class="s1">'\n'</span> <span class="s1">'\0'</span> | xargs <span class="nt">-0</span> <span class="nt">-I</span> <span class="o">{}</span> <span class="nb">printf</span> <span class="s2">"</span><span class="si">$(</span><span class="nb">basename</span> <span class="si">$(</span><span class="nb">pwd</span><span class="si">))</span><span class="s2">/{}</span><span class="se">\n</span><span class="s2">"</span><span class="o">)</span> <span class="k">done
+</span>c
+</pre></div></div>
+
+<h3>
+<span id="check-gem-version" class="fragment"></span><a href="#check-gem-version"><i class="fa fa-link"></i></a>Check gem version</h3>
+
+<p>E.g. rails</p>
+
+<div class="code-frame" data-lang="bash"><div class="highlight"><pre><span class="k">for </span><span class="nb">dir </span><span class="k">in</span> <span class="k">*</span>/<span class="p">;</span> <span class="k">do</span> <span class="o">(</span><span class="nb">cd</span> <span class="nv">$dir</span><span class="p">;</span> git <span class="nb">grep</span> <span class="nt">-n</span> <span class="nt">-E</span> <span class="s2">"^[ ]{4}rails "</span> <span class="nt">--</span> Gemfile.lock| <span class="nb">tr</span> <span class="nt">-s</span> <span class="s1">'\n'</span> <span class="s1">'\0'</span> | xargs <span class="nt">-0</span> <span class="nt">-I</span> <span class="o">{}</span> <span class="nb">printf</span> <span class="s2">"</span><span class="si">$(</span><span class="nb">basename</span> <span class="si">$(</span><span class="nb">pwd</span><span class="si">))</span><span class="s2">/{}</span><span class="se">\n</span><span class="s2">"</span><span class="o">)</span> <span class="k">done</span>
+// or
+<span class="k">for </span><span class="nb">dir </span><span class="k">in</span> <span class="k">*</span>/<span class="p">;</span> <span class="k">do</span> <span class="o">(</span><span class="nb">cd</span> <span class="nv">$dir</span><span class="p">;</span> <span class="nb">grep</span> <span class="nt">-nH</span> <span class="nt">-E</span> <span class="s2">"^[ ]{4}rails .*$"</span> <span class="nt">--</span> Gemfile.lock| <span class="nb">tr</span> <span class="nt">-s</span> <span class="s1">'\n'</span> <span class="s1">'\0'</span> | xargs <span class="nt">-0</span> <span class="nt">-I</span> <span class="o">{}</span> <span class="nb">printf</span> <span class="s2">"</span><span class="si">$(</span><span class="nb">basename</span> <span class="si">$(</span><span class="nb">pwd</span><span class="si">))</span><span class="s2">/{}</span><span class="se">\n</span><span class="s2">"</span><span class="o">)</span> <span class="k">done</span>
+</pre></div></div>
+
+<h3>
+<span id="for-example" class="fragment"></span><a href="#for-example"><i class="fa fa-link"></i></a>For example</h3>
+
+<p>the name of repository/the name of file:line number: version</p>
+
+<div class="code-frame" data-lang="text"><div class="highlight"><pre>ruby-cron_for_github-app/Gemfile.lock:14:    rake (0.9.2.2)
+ruby-saddler/Gemfile.lock:24:    rake (13.0.1)
+</pre></div></div>
+
+<p>いいかんじ。<br>
+<a href="https://dev.to/sanemat/show-ruby-gem-version-in-repository-on-github-organization-1h7d" rel="nofollow noopener" target="_blank">Show Ruby/Gem version in repository on GitHub organization</a></p>

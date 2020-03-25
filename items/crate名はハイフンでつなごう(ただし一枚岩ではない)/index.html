@@ -1,0 +1,97 @@
+
+<h1>
+<span id="tldr" class="fragment"></span><a href="#tldr"><i class="fa fa-link"></i></a>TL;DR</h1>
+
+<p>crate名はハイフンでつなごう。こんな感じ <a href="https://crates.io/crates/hyper-tls" rel="nofollow noopener" target="_blank">hyper-tls</a>, <a href="https://crates.io/crates/tokio-core" rel="nofollow noopener" target="_blank">tokio-core</a></p>
+
+<p>依存はこう。ハイフン。</p>
+
+<div class="code-frame" data-lang="toml"><div class="highlight"><pre><span class="nn">[dependencies]</span>
+<span class="py">hyper-tls</span> <span class="p">=</span> <span class="s">"0.1.2"</span>
+<span class="py">tokio-core</span> <span class="p">=</span> <span class="s">"0.1"</span>
+</pre></div></div>
+
+<p>使うときは、こう。アンダースコア。</p>
+
+<div class="code-frame" data-lang="rust"><div class="highlight"><pre><span class="k">extern</span> <span class="n">crate</span> <span class="n">hyper_tls</span><span class="p">;</span>
+<span class="k">extern</span> <span class="n">crate</span> <span class="n">tokio_core</span><span class="p">;</span>
+</pre></div></div>
+
+<h2>
+<span id="rustlangのかつての公式ルール" class="fragment"></span><a href="#rustlang%E3%81%AE%E3%81%8B%E3%81%A4%E3%81%A6%E3%81%AE%E5%85%AC%E5%BC%8F%E3%83%AB%E3%83%BC%E3%83%AB"><i class="fa fa-link"></i></a>rustlangの(かつての)公式ルール</h2>
+
+<p>公式ドキュメントでは<a href="https://github.com/rust-lang/rfcs/blob/8ee535b4fcc8bb22c121ad19a36414f1259397c0/text/0430-finalizing-naming-conventions.md" rel="nofollow noopener" target="_blank">RFC 0430</a>で</p>
+
+<table>
+<thead>
+<tr>
+<th>Item</th>
+<th>Convention</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Crates</td>
+<td>
+<code>snake_case</code> (but prefer single word)</td>
+</tr>
+</tbody>
+</table>
+
+<p>こういうルールがあり、<code>snake_case</code>で命名するのが正しそうに見える。<br>
+ググると出てくるのは、実はRFC 0430を元にした古いドキュメントで、<a href="https://doc.rust-lang.org/1.0.0/style/style/naming/README.html" rel="nofollow noopener" target="_blank">Naming conventions</a>、今はない <img alt=":thinking:" class="emoji" height="20" src="../../img/5_g.png" title=":thinking:" width="20" loading="lazy"></p>
+
+<h2>
+<span id="steve-klabnik-said" class="fragment"></span><a href="#steve-klabnik-said"><i class="fa fa-link"></i></a>Steve Klabnik said</h2>
+
+<blockquote>
+<p>The <code>-</code> to <code>_</code> thing didn't always exist, so you'll see a lot of earlier projects use <code>_</code>. The convention is generally to use <code>-</code>.<br>
+<a href="https://users.rust-lang.org/t/is-it-good-practice-to-call-crates-hello-world-hello-world-or-does-it-not-matter/6114/2" class="autolink" rel="nofollow noopener" target="_blank">https://users.rust-lang.org/t/is-it-good-practice-to-call-crates-hello-world-hello-world-or-does-it-not-matter/6114/2</a></p>
+</blockquote>
+
+<p>えぇ。。</p>
+
+<blockquote>
+<p>That style guide has been entirely removed, check nightly. The reason it was was because its old, not updated, and not accurate.<br>
+<a href="https://www.reddit.com/r/rust/comments/5200kk/rules_and_etiquette_on_rust_crate_names/" rel="nofollow noopener" target="_blank">Rules and etiquette on Rust crate names (self.rust)</a></p>
+</blockquote>
+
+<p>ひえっ</p>
+
+<h2>
+<span id="一枚岩ではない" class="fragment"></span><a href="#%E4%B8%80%E6%9E%9A%E5%B2%A9%E3%81%A7%E3%81%AF%E3%81%AA%E3%81%84"><i class="fa fa-link"></i></a>一枚岩ではない</h2>
+
+<p>rustlang のorganizationメンバーでmozilla所属の人でもアンダースコア区切りで新規crate <a href="https://crates.io/crates/state_machine_future" rel="nofollow noopener" target="_blank">state_machine_future</a> 作る人は居るのでもっとわからない。</p>
+
+<h2>
+<span id="cratesio" class="fragment"></span><a href="#cratesio"><i class="fa fa-link"></i></a>crates.io</h2>
+
+<p>crates.ioはさらにカオスであり、cargo-editは、なんと間違えると正しい方を追加してくれる。</p>
+
+<div class="code-frame" data-lang="text"><div class="highlight"><pre>$ cargo add serde-json
+WARN: Added `serde_json` instead of `serde-json`
+
+$ cargo add hyper_tls
+WARN: Added `hyper-tls` instead of `hyper_tls`
+
+$ cat Cargo.toml
+(snip)
+[dependencies]
+hyper-tls = "0.1.2"
+serde_json = "1.0.8"
+</pre></div></div>
+
+<p>賢いのやら賢くないのやら。</p>
+
+<p>ハイフンとアンダースコアが違うだけのcrateは同名扱い、リネームしようと名前変えpublishしようとしても、それあるから！ってエラーで拒絶される。</p>
+
+<h2>
+<span id="なんだこれ" class="fragment"></span><a href="#%E3%81%AA%E3%82%93%E3%81%A0%E3%81%93%E3%82%8C"><i class="fa fa-link"></i></a>なんだこれ</h2>
+
+<p>なんだこれ…と思わなくはない。</p>
+
+<p>形から入るタイプなのでこういうのすごく気になる。<a href="https://qiita.com/sanemat/items/df73ca01fd56b9efa410" id="reference-7ec0cf77475c54eb8873">yo rustmではじめるrustのモジュールづくり - Qiita</a>のgenerator-rustmもいろいろ調べた結果、古いドキュメントをあたってしまい初めはcrateをアンダースコアで作ってしまった。今はハイフンになってます。</p>
+
+<p><a href="https://crates.io/users/sanemat" rel="nofollow noopener" target="_blank">私のcrate</a>も、新しく作りかけで名前スクワッティングしているcrate以外アンダースコアなんだなあ。それか無理やり1語にしてる。</p>
+
+<p><img alt=":thinking:" class="emoji" height="20" src="../../img/5_g.png" title=":thinking:" width="20" loading="lazy"> </p>

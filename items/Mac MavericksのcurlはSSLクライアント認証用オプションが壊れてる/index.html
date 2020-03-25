@@ -1,0 +1,15 @@
+<p>壊れているので気をつける。</p>
+
+<h2>
+<span id="sslクライアント認証の地雷1" class="fragment"></span><a href="#ssl%E3%82%AF%E3%83%A9%E3%82%A4%E3%82%A2%E3%83%B3%E3%83%88%E8%AA%8D%E8%A8%BC%E3%81%AE%E5%9C%B0%E9%9B%B71"><i class="fa fa-link"></i></a>SSLクライアント認証の地雷1</h2>
+
+<p>Mavericksのcurl v7.30.0 は <code>-E/--cert</code> オプションが壊れている。 <br>
+<a href="http://curl.haxx.se/mail/archive-2013-10/0036.html" rel="nofollow noopener" target="_blank">Curl: Important note for curl users on OS X Mavericks 10.9</a><br>
+<a href="http://threetreeslight.com/post/78186114011/error-ssl-certificate-problem-invalid-certificate" rel="nofollow noopener" target="_blank">error: SSL certificate problem: Invalid certificate chain while accessing発生時の対応 | iii ThreeTreesLight</a></p>
+
+<p>ふええ</p>
+
+<div class="code-frame" data-lang="text"><div class="highlight"><pre>$ curl -vvv -s -k --key client.key --cert client.crt https://localhost:4242
+
+client sent no required SSL certificate while reading client request headers
+</pre></div></div>

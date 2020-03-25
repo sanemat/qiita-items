@@ -1,0 +1,55 @@
+
+<h1>
+<span id="どんな感じ" class="fragment"></span><a href="#%E3%81%A9%E3%82%93%E3%81%AA%E6%84%9F%E3%81%98"><i class="fa fa-link"></i></a>どんな感じ</h1>
+
+<p><a href="https://qiita-user-contents.imgix.net/https%3A%2F%2Fgist.githubusercontent.com%2Fsanemat%2Fd5300f37edb2093ccec1%2Fraw%2F99152d5044df5aa3f16169557bedfd0c2d0faa33%2Fgrunt-mocha-power-assert2.gif?ixlib=rb-1.2.2&amp;auto=format&amp;gif-q=60&amp;q=75&amp;s=70d0424dcbe4bc71ee6f2918d755c900" target="_blank" rel="nofollow noopener"><img src="https://qiita-user-contents.imgix.net/https%3A%2F%2Fgist.githubusercontent.com%2Fsanemat%2Fd5300f37edb2093ccec1%2Fraw%2F99152d5044df5aa3f16169557bedfd0c2d0faa33%2Fgrunt-mocha-power-assert2.gif?ixlib=rb-1.2.2&amp;auto=format&amp;gif-q=60&amp;q=75&amp;s=70d0424dcbe4bc71ee6f2918d755c900" alt="grunt-mocha-power-assert" data-canonical-src="https://gist.githubusercontent.com/sanemat/d5300f37edb2093ccec1/raw/99152d5044df5aa3f16169557bedfd0c2d0faa33/grunt-mocha-power-assert2.gif" srcset="https://qiita-user-contents.imgix.net/https%3A%2F%2Fgist.githubusercontent.com%2Fsanemat%2Fd5300f37edb2093ccec1%2Fraw%2F99152d5044df5aa3f16169557bedfd0c2d0faa33%2Fgrunt-mocha-power-assert2.gif?ixlib=rb-1.2.2&amp;auto=format&amp;gif-q=60&amp;q=75&amp;w=1400&amp;fit=max&amp;s=991ed5cf2ccef19879b650326cfc1062 1x" loading="lazy"></a></p>
+
+<h1>
+<span id="yo" class="fragment"></span><a href="#yo"><i class="fa fa-link"></i></a>yo</h1>
+
+<div class="code-frame" data-lang="text"><div class="highlight"><pre>npm install -g generator-node
+yo node
+david update # ひとまず最新に
+</pre></div></div>
+
+<h1>
+<span id="mocha-assert" class="fragment"></span><a href="#mocha-assert"><i class="fa fa-link"></i></a>mocha, assert</h1>
+
+<p>組み合わさってるのが<code>nodeunit</code>なので、まず<code>mocha</code>と<code>assert</code>に変える。</p>
+
+<p><code>grunt</code>と<code>mocha</code>の組み合わせ<br>
+- grunt-simple-mocha<br>
+- grunt-mocha-test</p>
+
+<p><code>simple-mocha</code>がよさそうだけど、<code>mocha</code>のrequireオプションを<code>power-assert</code>関連で使いたいので、requireオプション使える<code>grunt-mocha-test</code>を使う。</p>
+
+<div class="code-frame" data-lang="text"><div class="highlight"><pre>npm install grunt-mocha-test --save-dev
+</pre></div></div>
+
+<h1>
+<span id="power-assert" class="fragment"></span><a href="#power-assert"><i class="fa fa-link"></i></a>power-assert</h1>
+
+<div class="code-frame" data-lang="text"><div class="highlight"><pre>npm install power-assert intelli-espower-loader --save-dev
+</pre></div></div>
+
+<p><code>assert</code>を<code>power-assert</code>に変える。<br>
+<code>grunt-mocha-test</code> のrequire オプションに<code>intelli-espower-loader</code>渡す。</p>
+
+<p>package.jsonに <code>"directories": { "test": "test/" },</code>付け足して終わり。</p>
+
+<h1>
+<span id="参照" class="fragment"></span><a href="#%E5%8F%82%E7%85%A7"><i class="fa fa-link"></i></a>参照</h1>
+
+<h2>
+<span id="具体例" class="fragment"></span><a href="#%E5%85%B7%E4%BD%93%E4%BE%8B"><i class="fa fa-link"></i></a>具体例</h2>
+
+<p><a href="https://github.com/sanemat/tokyo-amesh-scraper" rel="nofollow noopener" target="_blank">tokyo-amesh-scraper</a></p>
+
+<h2>
+<span id="その他" class="fragment"></span><a href="#%E3%81%9D%E3%81%AE%E4%BB%96"><i class="fa fa-link"></i></a>その他</h2>
+
+<p><a href="https://github.com/yeoman/generator-node" rel="nofollow noopener" target="_blank">generator-node</a><br>
+<a href="https://github.com/pghalliday/grunt-mocha-test" rel="nofollow noopener" target="_blank">grunt-mocha-test</a><br>
+<a href="https://github.com/alanshaw/david" rel="nofollow noopener" target="_blank">david</a><br>
+<a href="https://github.com/twada/power-assert" rel="nofollow noopener" target="_blank">power-assert</a><br>
+<a href="https://github.com/azu/intelli-espower-loader" rel="nofollow noopener" target="_blank">intelli-espower-loader</a></p>

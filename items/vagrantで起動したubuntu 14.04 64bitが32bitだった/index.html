@@ -1,0 +1,15 @@
+<p>2014-07-08 1:44時点 vagrantでUbuntu 14.04 64bitを入れたつもりで32bitが立ち上がっていた。</p>
+
+<div class="code-frame" data-lang="text"><div class="highlight"><pre>config.vm.box = "ubuntu/trusty64"
+</pre></div></div>
+
+<p>ひとまずostype書き換えてやると64bitで起動する。</p>
+
+<div class="code-frame" data-lang="text"><div class="highlight"><pre>config.vm.provider "virtualbox" do |vb|
+  vb.customize ["modifyvm", :id, "--ostype", "Ubuntu_64"]
+end
+</pre></div></div>
+
+<p>ひどい。</p>
+
+<p><a href="https://github.com/mitchellh/vagrant/issues/4108" rel="nofollow noopener" target="_blank">ubuntu/trusty64 box uses wrong architecture in ovf config · Issue #4108 · mitchellh/vagrant</a></p>

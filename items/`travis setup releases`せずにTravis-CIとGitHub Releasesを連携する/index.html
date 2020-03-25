@@ -1,0 +1,50 @@
+<p><code>travis setup releases</code>はidとpasswordをいったん入力して、(その後2factor authして)、コマンド内からGitHubのTokenを取りに行く。そんな挙動は気持ち悪いので、自分でブラウザからtoken取得してyamlを書きたい。</p>
+
+<p>ただ、公式ドキュメントが、こうなっているので、secureにする方法がよくわからなかった。</p>
+
+<div class="code-frame" data-lang="yaml"><div class="highlight"><pre><span class="na">deploy</span><span class="pi">:</span>
+  <span class="na">api_key</span><span class="pi">:</span> <span class="s2">"</span><span class="s">GITHUB_TOKEN"</span>
+</pre></div></div>
+
+<p>結論はこうすればいい。secureの部分は<code>$ travis encrypt -r your_account/your_repos "&lt;github_token&gt;"</code> こんな感じで。</p>
+
+<div class="code-frame" data-lang="yaml"><div class="highlight"><pre><span class="na">deploy</span><span class="pi">:</span>
+  <span class="na">api_key</span><span class="pi">:</span>
+    <span class="na">secure</span><span class="pi">:</span> <span class="s2">"</span><span class="s">YOUR_ENCRYPTED_VALUE"</span>
+</pre></div></div>
+
+<p>環境変数を暗号化して渡すのにしかencrypt使ったことなかったので、FOO=valueにして渡す発想しか無くて、FOO部分を探しまわってしまった。今回は不要だった。</p>
+
+<h2>
+<span id="手順" class="fragment"></span><a href="#%E6%89%8B%E9%A0%86"><i class="fa fa-link"></i></a>手順</h2>
+
+<p><a href="https://github.com/settings/tokens/new" rel="nofollow noopener" target="_blank">New personal access token</a> から必要最小限な権限のscopeを選んでTOKENを発行。public repoなら <code>public_repo</code>, private repoなら<code>repo</code>。</p>
+
+<p>そのtokenをencrypt。</p>
+
+<div class="code-frame" data-lang="bash"><div class="highlight"><pre><span class="nv">$ </span>travis encrypt <span class="nt">-r</span> your_account/your_repos <span class="s2">"&lt;github_token&gt;"</span>
+</pre></div></div>
+
+<p>あとはyamlに書く。</p>
+
+<div class="code-frame" data-lang="yaml"><div class="highlight"><pre><span class="na">deploy</span><span class="pi">:</span>
+  <span class="na">provider</span><span class="pi">:</span> <span class="s">releases</span>
+  <span class="na">api_key</span><span class="pi">:</span>
+    <span class="na">secure</span><span class="pi">:</span> <span class="s2">"</span><span class="s">YOUR_ENCRYPTED_VALUE"</span>
+  <span class="na">file</span><span class="pi">:</span>
+  <span class="pi">-</span> <span class="s2">"</span><span class="s">package/do-not-merge-wip-for-github.zip"</span>
+  <span class="na">on</span><span class="pi">:</span>
+    <span class="na">repo</span><span class="pi">:</span> <span class="s">sanemat/do-not-merge-wip-for-github</span>
+    <span class="na">tags</span><span class="pi">:</span> <span class="no">true</span>
+  <span class="na">skip_cleanup</span><span class="pi">:</span> <span class="no">true</span>
+</pre></div></div>
+
+<p>おわり。</p>
+
+<hr>
+
+<ul>
+<li><a href="http://docs.travis-ci.com/user/deployment/releases/" rel="nofollow noopener" target="_blank">GitHub Releases Uploading - Travis CI</a></li>
+<li><a href="http://efcl.info/2014/09/05/node-webkit-binary-release/" rel="nofollow noopener" target="_blank">node-webkitアプリをTravis CI経由でGitHub Releaseにバイナリ登録する | Web Scratch</a></li>
+<li><a href="http://qiita.com/methane/items/f8c5a5f2209739daf44e" id="reference-4166a32275cce8129f9d">Travis-CI で Go の Windows 用バイナリを Github release に登録する - Qiita</a></li>
+</ul>

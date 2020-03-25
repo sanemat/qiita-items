@@ -1,0 +1,25 @@
+<p>Q.appveyorでキャッシュが壊れてエラーから抜けたい！cacheのinvalidateどうするか。<br>
+A.ブラウザでコンソール開いて自分でdelete投げる。</p>
+
+<blockquote>
+<p>Simplest usage is to use javascript console on appveyor:</p>
+
+<div class="code-frame" data-lang="text"><div class="highlight"><pre>$.ajax({
+    url: 'https://ci.appveyor.com/api/projects/&lt;username&gt;/&lt;project&gt;/buildcache',
+    type: 'DELETE'})
+</pre></div></div>
+
+<p><a href="https://github.com/appveyor/ci/issues/985#issuecomment-279199811" class="autolink" rel="nofollow noopener" target="_blank">https://github.com/appveyor/ci/issues/985#issuecomment-279199811</a></p>
+</blockquote>
+
+<p>なんでやねん</p>
+
+<p>Updates(2017-11-04 9:50)<br>
+google chrome developer toolsのsnippetsでこんなの保存しておくと良い。</p>
+
+<div class="code-frame" data-lang="javascript"><div class="highlight"><pre><span class="kd">var</span> <span class="nx">targetUrl</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">URL</span><span class="p">(</span><span class="nx">location</span><span class="p">.</span><span class="nx">href</span><span class="p">).</span><span class="nx">pathname</span><span class="p">.</span><span class="nx">split</span><span class="p">(</span><span class="dl">'</span><span class="s1">/</span><span class="dl">'</span><span class="p">);</span>
+<span class="kd">var</span> <span class="nx">purgeApi</span> <span class="o">=</span> <span class="dl">'</span><span class="s1">https://ci.appveyor.com/api/projects/</span><span class="dl">'</span> <span class="o">+</span> <span class="nx">targetUrl</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">+</span> <span class="dl">'</span><span class="s1">/</span><span class="dl">'</span> <span class="o">+</span> <span class="nx">targetUrl</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">+</span> <span class="dl">'</span><span class="s1">/buildcache</span><span class="dl">'</span><span class="p">;</span>
+<span class="nx">$</span><span class="p">.</span><span class="nx">ajax</span><span class="p">({</span>
+  <span class="na">url</span><span class="p">:</span> <span class="nx">purgeApi</span><span class="p">,</span>
+  <span class="na">type</span><span class="p">:</span> <span class="dl">'</span><span class="s1">DELETE</span><span class="dl">'</span><span class="p">});</span>
+</pre></div></div>

@@ -1,0 +1,38 @@
+
+<h1>
+<span id="railsでer図" class="fragment"></span><a href="#rails%E3%81%A7er%E5%9B%B3"><i class="fa fa-link"></i></a>railsでER図</h1>
+
+<h2>
+<span id="現状2014-08-08の結論" class="fragment"></span><a href="#%E7%8F%BE%E7%8A%B62014-08-08%E3%81%AE%E7%B5%90%E8%AB%96"><i class="fa fa-link"></i></a>現状(2014-08-08)の結論</h2>
+
+<p><code>railroady</code> v1.1.2　使うのが良さそう。</p>
+
+<h2>
+<span id="現状2014-08-07の結論" class="fragment"></span><a href="#%E7%8F%BE%E7%8A%B62014-08-07%E3%81%AE%E7%B5%90%E8%AB%96"><i class="fa fa-link"></i></a><del>現状(2014-08-07)の結論</del>
+</h2>
+
+<p><del>github: 'preston/railroady'のmaster指定して使うのが良さそう。</del></p>
+
+<h2>
+<span id="経緯" class="fragment"></span><a href="#%E7%B5%8C%E7%B7%AF"><i class="fa fa-link"></i></a>経緯</h2>
+
+<p><code>rails-erd</code>が1.1.0 January 17, 2013 からアップデート無い。githubのmasterもそこで止まってる。<br>
+動きそうなforkはGraphsのNetwork見るところ<code>github: 'devbbq/rails-erd'</code>これかな(未確認)。<br>
+<code>rails-erd</code>は<code>RailRoad</code>がrails 2.3で動かなくなったあとに主流になったっぽい(未確認)<br>
+<code>RailRoad</code>のforkの<code>railroady</code>がrails 3/4 対応してる。1.1.2 August 8, 2014 リリースしてくれた! <del>ただrailroadyのgemのリリースは1.1.1 July 31, 2013 で止まってる。masterはその後も更新してる。masterだとrails4.1.4, ruby2.1.2, 簡単なmodel/controllerでエラー無く動いた。のでまあこれでいいかか。</del></p>
+
+<p>こんなsvgが<code>doc/</code>以下に出る。</p>
+
+<p><a href="https://qiita-user-contents.imgix.net/https%3A%2F%2Fqiita-image-store.s3.amazonaws.com%2F0%2F5653%2F0d79318e-8570-d042-8cb9-4b028e26ff3e.png?ixlib=rb-1.2.2&amp;auto=format&amp;gif-q=60&amp;q=75&amp;s=cca8bb648d949c3a139597aaba6284cb" target="_blank" rel="nofollow noopener"><img src="https://qiita-user-contents.imgix.net/https%3A%2F%2Fqiita-image-store.s3.amazonaws.com%2F0%2F5653%2F0d79318e-8570-d042-8cb9-4b028e26ff3e.png?ixlib=rb-1.2.2&amp;auto=format&amp;gif-q=60&amp;q=75&amp;s=cca8bb648d949c3a139597aaba6284cb" alt="Screen Shot 2014-08-07 at 0.55.29.png" data-canonical-src="https://qiita-image-store.s3.amazonaws.com/0/5653/0d79318e-8570-d042-8cb9-4b028e26ff3e.png" srcset="https://qiita-user-contents.imgix.net/https%3A%2F%2Fqiita-image-store.s3.amazonaws.com%2F0%2F5653%2F0d79318e-8570-d042-8cb9-4b028e26ff3e.png?ixlib=rb-1.2.2&amp;auto=format&amp;gif-q=60&amp;q=75&amp;w=1400&amp;fit=max&amp;s=ea6f14f23166bdb89297d83712925e2b 1x" loading="lazy"></a></p>
+
+<p><a href="https://qiita-user-contents.imgix.net/https%3A%2F%2Fqiita-image-store.s3.amazonaws.com%2F0%2F5653%2Fdab5c700-11e0-9ed6-51c1-eb731b81c0b1.png?ixlib=rb-1.2.2&amp;auto=format&amp;gif-q=60&amp;q=75&amp;s=7cc856489a90312517d3bae6627c8900" target="_blank" rel="nofollow noopener"><img src="https://qiita-user-contents.imgix.net/https%3A%2F%2Fqiita-image-store.s3.amazonaws.com%2F0%2F5653%2Fdab5c700-11e0-9ed6-51c1-eb731b81c0b1.png?ixlib=rb-1.2.2&amp;auto=format&amp;gif-q=60&amp;q=75&amp;s=7cc856489a90312517d3bae6627c8900" alt="Screen Shot 2014-08-07 at 0.55.44.png" data-canonical-src="https://qiita-image-store.s3.amazonaws.com/0/5653/dab5c700-11e0-9ed6-51c1-eb731b81c0b1.png" srcset="https://qiita-user-contents.imgix.net/https%3A%2F%2Fqiita-image-store.s3.amazonaws.com%2F0%2F5653%2Fdab5c700-11e0-9ed6-51c1-eb731b81c0b1.png?ixlib=rb-1.2.2&amp;auto=format&amp;gif-q=60&amp;q=75&amp;w=1400&amp;fit=max&amp;s=03e8db837220119b7be38bcdb708ef78 1x" loading="lazy"></a></p>
+
+<div class="code-frame" data-lang="text"><div class="highlight"><pre>$ tree doc/
+doc/
+├── controllers_brief.svg
+├── controllers_complete.svg
+├── models_brief.svg
+└── models_complete.svg
+</pre></div></div>
+
+<p>もっといいのがありそう。</p>

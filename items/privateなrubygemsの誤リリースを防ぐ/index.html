@@ -1,0 +1,21 @@
+<p>うっかり<code>rake relase</code>出来ないようにする <a href="http://qiita.com/kyanny/items/2de40ca0b5127a0f5c2a" id="reference-89cc8ca0081207fc13d7">Ruby - Rake のタスクを消す (プライベートな gem のうっかり rake release を防ぐ) - Qiita</a> という対処の他に。</p>
+
+<p><code>RubyGems 2.2.0 and newer</code> で<code>allowed_push_host</code>が使える。exampleはコピペ。</p>
+
+<div class="code-frame" data-lang="rb"><div class="highlight"><pre><span class="no">Gem</span><span class="o">::</span><span class="no">Specification</span><span class="p">.</span><span class="nf">new</span> <span class="s1">'my_gem'</span><span class="p">,</span> <span class="s1">'1.0'</span> <span class="k">do</span> <span class="o">|</span><span class="n">s</span><span class="o">|</span>
+  <span class="c1"># ...</span>
+  <span class="n">s</span><span class="p">.</span><span class="nf">metadata</span><span class="p">[</span><span class="s1">'allowed_push_host'</span><span class="p">]</span> <span class="o">=</span> <span class="s1">'https://gems.my-company.example'</span>
+<span class="k">end</span>
+</pre></div></div>
+
+<p><a href="http://guides.rubygems.org/publishing/#serving-your-own-gems" class="autolink" rel="nofollow noopener" target="_blank">http://guides.rubygems.org/publishing/#serving-your-own-gems</a></p>
+
+<hr>
+
+<p>追記(2015-02-12 2:40)<br>
+bundler v1.8.0から、<code>bundle gem foo</code>で生成する<code>.gemspec</code>に<code>allowed_push_host</code>の記述入るようになった。こんな。</p>
+
+<div class="code-frame" data-lang="rb"><div class="highlight"><pre><span class="k">if</span> <span class="n">spec</span><span class="p">.</span><span class="nf">respond_to?</span><span class="p">(</span><span class="ss">:metadata</span><span class="p">)</span>
+  <span class="n">spec</span><span class="p">.</span><span class="nf">metadata</span><span class="p">[</span><span class="s1">'allowed_push_host'</span><span class="p">]</span> <span class="o">=</span> <span class="s2">"TODO: Set to 'http://mygemserver.com' to prevent pushes to rubygems.org, or delete to allow pushes to any server."</span>
+<span class="k">end</span>
+</pre></div></div>
